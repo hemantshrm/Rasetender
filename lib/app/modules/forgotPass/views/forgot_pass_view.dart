@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scrap_bid/app/modules/login/views/loginView_constants.dart';
+import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
@@ -72,7 +72,7 @@ class ForgotPassView extends GetView<ForgotPassController> {
                       onTap: () {
                         Get.toNamed(Routes.LOGIN);
                       },
-                      child: Text("Back to SignIn",
+                      child: Text("Back to Login",
                           style: textstyle.copyWith(
                               fontSize: 16, color: Color(0xff919294))),
                     ),

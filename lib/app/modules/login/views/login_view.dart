@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scrap_bid/app/modules/home/controllers/home_controller.dart';
-import 'package:scrap_bid/app/modules/home/views/home_view.dart';
-import 'package:scrap_bid/app/modules/login/views/loginView_constants.dart';
+import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
@@ -55,9 +53,11 @@ class LoginView extends GetView<LoginController> {
                   heading: "Email Address",
                   hidetext: false,
                   suffixIcon: null,
-                  onpress: () {
-                    controller.toggle();
+                  onpress: () {},
+                  ontextChange: (text) {
+                    controller.setEmailString(text);
                   },
+                  textEditingController: controller.email,
                 ),
                 SizedBox(
                   height: 40,
@@ -67,14 +67,17 @@ class LoginView extends GetView<LoginController> {
                     icon: Icon(Icons.lock_outline_rounded),
                     hintText: "Enter your Password",
                     heading: "Password",
-                    suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                    suffixIcon: controller.obscureText.value
+                        ? Icon(Icons.visibility_outlined)
+                        : Icon(Icons.visibility_off_outlined),
                     hidetext: controller.obscureText.value,
                     onpress: () {
                       controller.toggle();
                     },
                     ontextChange: (text) {
-                      controller.setpassString(text);
+                      controller.setPassString(text);
                     },
+                    textEditingController: controller.password,
                   ),
                 ),
                 SizedBox(
@@ -83,8 +86,7 @@ class LoginView extends GetView<LoginController> {
                 MainButton(
                   title: "Login",
                   onpress: () {
-                    print(controller.passwordText.toString());
-                    Get.toNamed(Routes.HOME);
+                    controller.validate();
                   },
                 ),
                 SizedBox(
@@ -93,10 +95,15 @@ class LoginView extends GetView<LoginController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "SignUp",
-                      style: textstyle.copyWith(
-                          fontSize: 16, color: Color(0xff919294)),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.SIGN_UP);
+                      },
+                      child: Text(
+                        "SignUp",
+                        style: textstyle.copyWith(
+                            fontSize: 16, color: Color(0xff919294)),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -155,13 +162,16 @@ class LoginButtons extends StatelessWidget {
       this.suffixIcon,
       this.hidetext,
       this.onpress,
-      this.ontextChange});
+      this.ontextChange,
+      this.textEditingController});
   final Function onpress;
   final String hintText, heading;
   final Icon icon;
   final Icon suffixIcon;
   final bool hidetext;
-  final LoginController controller = Get.put(LoginController());
+  TextEditingController textEditingController;
+  final LoginController controller =
+      Get.put<LoginController>(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -195,27 +205,35 @@ class LoginButtons extends StatelessWidget {
                 depth: 20,
                 borderRadius: 10,
                 emboss: true,
-                child: TextField(
-                    onChanged: (text) {
-                      ontextChange(text);
-                    },
-                    obscureText: suffixIcon == null
-                        ? false
-                        : controller.obscureText.value,
-                    autofocus: false,
-                    style: textstyle,
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        prefixIcon: icon,
-                        suffixIcon: suffixIcon == null
-                            ? null
-                            : IconButton(icon: suffixIcon, onPressed: onpress),
-                        contentPadding: EdgeInsets.zero,
-                        focusedBorder:
-                            UnderlineInputBorder(borderSide: BorderSide.none),
-                        hintText: hintText,
-                        hintStyle: textstyle)),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    // override textfield's icon color when selected
+                    primaryColor: AppConstants.APP_THEME_COLOR,
+                  ),
+                  child: TextFormField(
+                      controller: textEditingController,
+                      onChanged: (text) {
+                        ontextChange(text);
+                      },
+                      obscureText: suffixIcon == null
+                          ? false
+                          : controller.obscureText.value,
+                      autofocus: false,
+                      style: textstyle,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: icon,
+                          suffixIcon: suffixIcon == null
+                              ? null
+                              : IconButton(
+                                  icon: suffixIcon, onPressed: onpress),
+                          contentPadding: EdgeInsets.zero,
+                          focusedBorder:
+                              UnderlineInputBorder(borderSide: BorderSide.none),
+                          hintText: hintText,
+                          hintStyle: textstyle)),
+                ),
               ),
             ),
           ],
