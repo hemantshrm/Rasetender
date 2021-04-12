@@ -63,10 +63,15 @@ class ForgotPassView extends GetView<ForgotPassController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "SignUp",
-                      style: textstyle.copyWith(
-                          fontSize: 16, color: Color(0xff919294)),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.SIGN_UP);
+                      },
+                      child: Text(
+                        "Sign Up",
+                        style: textstyle.copyWith(
+                            fontSize: 16, color: Color(0xff919294)),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {

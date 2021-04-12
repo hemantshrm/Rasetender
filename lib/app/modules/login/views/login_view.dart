@@ -34,7 +34,10 @@ class LoginView extends GetView<LoginController> {
                 CircleAvatar(
                   backgroundColor: AppConstants.APP_THEME_COLOR,
                   radius: 60,
-                  child: Image.asset('assets/images/icon.png'),
+                  child: Image.asset(
+                    'assets/images/icon.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -58,6 +61,7 @@ class LoginView extends GetView<LoginController> {
                     controller.setEmailString(text);
                   },
                   textEditingController: controller.email,
+                  keyboard: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 40,
@@ -100,7 +104,7 @@ class LoginView extends GetView<LoginController> {
                         Get.toNamed(Routes.SIGN_UP);
                       },
                       child: Text(
-                        "SignUp",
+                        "Sign Up",
                         style: textstyle.copyWith(
                             fontSize: 16, color: Color(0xff919294)),
                       ),
@@ -163,12 +167,14 @@ class LoginButtons extends StatelessWidget {
       this.hidetext,
       this.onpress,
       this.ontextChange,
-      this.textEditingController});
+      this.textEditingController,
+      this.keyboard});
   final Function onpress;
   final String hintText, heading;
   final Icon icon;
   final Icon suffixIcon;
   final bool hidetext;
+  final TextInputType keyboard;
   TextEditingController textEditingController;
   final LoginController controller =
       Get.put<LoginController>(LoginController());
@@ -176,7 +182,7 @@ class LoginButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClayContainer(
-      height: Get.height / 8,
+      height: Get.height / 8.5,
       width: Get.width,
       color: Colors.white,
       borderRadius: 20,
@@ -211,6 +217,10 @@ class LoginButtons extends StatelessWidget {
                     primaryColor: AppConstants.APP_THEME_COLOR,
                   ),
                   child: TextFormField(
+                      keyboardType: keyboard,
+                      cursorColor: AppConstants.APP_THEME_COLOR,
+                      textInputAction: TextInputAction.unspecified,
+                      maxLines: 1,
                       controller: textEditingController,
                       onChanged: (text) {
                         ontextChange(text);

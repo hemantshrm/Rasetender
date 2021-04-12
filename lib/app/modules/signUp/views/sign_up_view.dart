@@ -5,11 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/login/controllers/login_controller.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
+import 'package:scrap_bid/app/modules/signUp/controllers/sign_up_controller.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 class SignUpView extends StatelessWidget {
-  final LoginController logController =
+  final LoginController _logController =
       Get.put<LoginController>(LoginController());
+  final SignUpController _signUpController =
+      Get.put<SignUpController>(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +25,7 @@ class SignUpView extends StatelessWidget {
             width: Get.width,
             height: Get.height,
             child: ListView(
+              physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               children: [
                 SizedBox(
@@ -50,6 +54,20 @@ class SignUpView extends StatelessWidget {
                   hidetext: false,
                   suffixIcon: null,
                   onpress: () {},
+                  textEditingController: _signUpController.username,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                LoginButtons(
+                  icon: Icon(Icons.phone),
+                  hintText: "Enter your Phone Number",
+                  heading: "Phone Number",
+                  hidetext: false,
+                  suffixIcon: null,
+                  onpress: () {},
+                  textEditingController: _signUpController.username,
+                  keyboard: TextInputType.phone,
                 ),
                 SizedBox(
                   height: 30,
@@ -61,6 +79,8 @@ class SignUpView extends StatelessWidget {
                   hidetext: false,
                   suffixIcon: null,
                   onpress: () {},
+                  textEditingController: _signUpController.email,
+                  keyboard: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 30,
@@ -68,18 +88,36 @@ class SignUpView extends StatelessWidget {
                 Obx(
                   () => LoginButtons(
                     icon: Icon(Icons.lock_outline_rounded),
-                    hintText: "Enter your Password",
+                    hintText: "Enter Password",
                     heading: "Password",
-                    suffixIcon: logController.obscureText.value
+                    suffixIcon: _logController.obscureText.value
                         ? Icon(Icons.visibility_outlined)
                         : Icon(Icons.visibility_off_outlined),
-                    hidetext: logController.obscureText.value,
+                    hidetext: _logController.obscureText.value,
                     onpress: () {
-                      logController.toggle();
+                      _logController.toggle();
                     },
-                    ontextChange: (text) {
-                      // controller.setpassString(text);
+                    ontextChange: (text) {},
+                    textEditingController: _signUpController.password,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Obx(
+                  () => LoginButtons(
+                    icon: Icon(Icons.lock_outline_rounded),
+                    hintText: "Confirm Password",
+                    heading: "Password",
+                    suffixIcon: _logController.obscureText.value
+                        ? Icon(Icons.visibility_outlined)
+                        : Icon(Icons.visibility_off_outlined),
+                    hidetext: _logController.obscureText.value,
+                    onpress: () {
+                      _logController.toggle();
                     },
+                    ontextChange: (text) {},
+                    textEditingController: _signUpController.password,
                   ),
                 ),
                 SizedBox(
@@ -88,8 +126,7 @@ class SignUpView extends StatelessWidget {
                 MainButton(
                   title: "Submit",
                   onpress: () {
-                    // print(controller.passwordText.toString());
-                    // Get.toNamed(Routes.HOME);
+                    _signUpController.validate();
                   },
                 ),
                 SizedBox(
@@ -106,6 +143,9 @@ class SignUpView extends StatelessWidget {
                             fontSize: 16, color: Color(0xff919294))),
                   ),
                 ),
+                SizedBox(
+                  height: 30,
+                )
               ],
             ),
           ),

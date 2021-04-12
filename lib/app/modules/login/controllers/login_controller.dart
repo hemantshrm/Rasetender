@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
@@ -29,19 +31,39 @@ class LoginController extends GetxController {
   void validate() {
     if (email.text.isEmpty) {
       errorSnackbar(msg: 'Enter Email Address');
+    } else if (!GetUtils.isEmail(email.text)) {
+      errorSnackbar(msg: 'Invalid Email');
+      print(email.value);
     } else if (password.text.isEmpty) {
       errorSnackbar(msg: 'Enter Password');
-    } else if (password.text.length < 6) {
-      errorSnackbar(msg: "Password must be 6 digit");
+    } else if (password.text.length < 8) {
+      errorSnackbar(msg: "Password must be 8 digit");
     } else {
       Get.toNamed(Routes.HOME);
     }
   }
 
   void errorSnackbar({@required String msg}) {
-    return Get.snackbar('$msg', "Error !",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red[300],
-        colorText: Colors.white);
+    return Get.rawSnackbar(
+      message: '$msg',
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      borderRadius: 8,
+      isDismissible: true,
+      dismissDirection: SnackDismissDirection.HORIZONTAL,
+      icon: Icon(
+        Icons.warning_amber_rounded,
+        color: Colors.white,
+      ),
+      overlayBlur: 1,
+      shouldIconPulse: true,
+      mainButton: TextButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text("Dismiss")),
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: AppConstants.SNACK_BG_COLOR,
+      // colorText: Colors.white
+    );
   }
 }
