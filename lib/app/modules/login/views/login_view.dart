@@ -64,7 +64,7 @@ class LoginView extends GetView<LoginController> {
                   keyboard: TextInputType.emailAddress,
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Obx(
                   () => LoginButtons(
@@ -85,7 +85,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 MainButton(
                   title: "Login",
@@ -94,7 +94,7 @@ class LoginView extends GetView<LoginController> {
                   },
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,6 +159,7 @@ class MainButton extends StatelessWidget {
 
 class LoginButtons extends StatelessWidget {
   Function(String) ontextChange;
+
   LoginButtons(
       {this.icon,
       this.hintText,
@@ -169,6 +170,7 @@ class LoginButtons extends StatelessWidget {
       this.ontextChange,
       this.textEditingController,
       this.keyboard});
+
   final Function onpress;
   final String hintText, heading;
   final Icon icon;

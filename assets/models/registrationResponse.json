@@ -1,0 +1,11 @@
+{
+  "status": 1,
+  "data": {
+    "fullname": "Monu Kuumar Parajapati",
+    "email": "test@triazinesoft.com",
+    "phone": "9717943954",
+    "password": "12345678",
+    "address": "Ecotech -12, Greater Noida West"
+  },
+  "msg": "You have been successfully registered!. Please wait for the admin approval."
+}

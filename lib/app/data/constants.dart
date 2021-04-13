@@ -9,4 +9,10 @@ class AppConstants {
   static const Color LABEL_COLOR = Color(0xFF353535);
   static const Color SNACK_BG_COLOR = Color(0xFF323232);
   static const Color BACKGROUND_COLOR_BOTTOM = Color(0xffF3F8FE);
+
+  //==========================================================================================
+  static const String BASE_URL = 'http://demo.triazinesoft.com/scrapdealer/api/v1/user/';
+  static const String REGISTRATION_URL = 'registration';
+
+
 }
