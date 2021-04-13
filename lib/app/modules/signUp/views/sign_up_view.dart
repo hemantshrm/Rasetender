@@ -13,6 +13,7 @@ class SignUpView extends StatelessWidget {
       Get.put<LoginController>(LoginController());
   final SignUpController _signUpController =
       Get.put<SignUpController>(SignUpController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,25 +29,25 @@ class SignUpView extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               children: [
-                SizedBox(
-                  height: Get.height / 10,
-                ),
-                CircleAvatar(
-                  backgroundColor: AppConstants.APP_THEME_COLOR,
-                  radius: 60,
-                  child: Image.asset('assets/images/icon.png'),
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text("Metal Scrapper",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.black, fontSize: 20)),
-                    )),
-                SizedBox(
-                  height: Get.height / 14,
-                ),
+                // SizedBox(
+                //   height: Get.height / 10,
+                // ),
+                // CircleAvatar(
+                //   backgroundColor: AppConstants.APP_THEME_COLOR,
+                //   radius: 60,
+                //   child: Image.asset('assets/images/icon.png'),
+                // ),
+                // Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Align(
+                //       alignment: Alignment.center,
+                //       child: Text("Metal Scrapper",
+                //           style: GoogleFonts.montserrat(
+                //               color: Colors.black, fontSize: 20)),
+                //     )),
+                // SizedBox(
+                //   height: Get.height / 14,
+                // ),
                 LoginButtons(
                   icon: Icon(Icons.person),
                   hintText: "Enter your Name",
@@ -66,7 +67,7 @@ class SignUpView extends StatelessWidget {
                   hidetext: false,
                   suffixIcon: null,
                   onpress: () {},
-                  textEditingController: _signUpController.username,
+                  textEditingController: _signUpController.phoneNo,
                   keyboard: TextInputType.phone,
                 ),
                 SizedBox(
@@ -90,14 +91,8 @@ class SignUpView extends StatelessWidget {
                     icon: Icon(Icons.lock_outline_rounded),
                     hintText: "Enter Password",
                     heading: "Password",
-                    suffixIcon: _logController.obscureText.value
-                        ? Icon(Icons.visibility_outlined)
-                        : Icon(Icons.visibility_off_outlined),
+                    suffixIcon: null,
                     hidetext: _logController.obscureText.value,
-                    onpress: () {
-                      _logController.toggle();
-                    },
-                    ontextChange: (text) {},
                     textEditingController: _signUpController.password,
                   ),
                 ),
@@ -108,7 +103,7 @@ class SignUpView extends StatelessWidget {
                   () => LoginButtons(
                     icon: Icon(Icons.lock_outline_rounded),
                     hintText: "Confirm Password",
-                    heading: "Password",
+                    heading: "Confirm Password",
                     suffixIcon: _logController.obscureText.value
                         ? Icon(Icons.visibility_outlined)
                         : Icon(Icons.visibility_off_outlined),
@@ -117,7 +112,7 @@ class SignUpView extends StatelessWidget {
                       _logController.toggle();
                     },
                     ontextChange: (text) {},
-                    textEditingController: _signUpController.password,
+                    textEditingController: _signUpController.confirmPassword,
                   ),
                 ),
                 SizedBox(
@@ -132,20 +127,20 @@ class SignUpView extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.LOGIN);
-                    },
-                    child: Text("Back to Login",
-                        style: textstyle.copyWith(
-                            fontSize: 16, color: Color(0xff919294))),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                )
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       Get.toNamed(Routes.LOGIN);
+                //     },
+                //     child: Text("Back to Login",
+                //         style: textstyle.copyWith(
+                //             fontSize: 16, color: Color(0xff919294))),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 30,
+                // )
               ],
             ),
           ),
