@@ -29,25 +29,25 @@ class SignUpView extends StatelessWidget {
               physics: BouncingScrollPhysics(),
               shrinkWrap: true,
               children: [
-                // SizedBox(
-                //   height: Get.height / 10,
-                // ),
-                // CircleAvatar(
-                //   backgroundColor: AppConstants.APP_THEME_COLOR,
-                //   radius: 60,
-                //   child: Image.asset('assets/images/icon.png'),
-                // ),
-                // Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: Align(
-                //       alignment: Alignment.center,
-                //       child: Text("Metal Scrapper",
-                //           style: GoogleFonts.montserrat(
-                //               color: Colors.black, fontSize: 20)),
-                //     )),
-                // SizedBox(
-                //   height: Get.height / 14,
-                // ),
+                SizedBox(
+                  height: Get.height / 10,
+                ),
+                CircleAvatar(
+                  backgroundColor: AppConstants.APP_THEME_COLOR,
+                  radius: 60,
+                  child: Image.asset('assets/images/icon.png'),
+                ),
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text("Metal Scrapper",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.black, fontSize: 20)),
+                    )),
+                SizedBox(
+                  height: Get.height / 14,
+                ),
                 LoginButtons(
                   icon: Icon(Icons.person),
                   hintText: "Enter your Name",
@@ -81,6 +81,18 @@ class SignUpView extends StatelessWidget {
                   suffixIcon: null,
                   onpress: () {},
                   textEditingController: _signUpController.email,
+                  keyboard: TextInputType.emailAddress,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                LoginButtons(
+                  icon: Icon(Icons.email_outlined),
+                  hintText: "Enter your Address",
+                  heading: "Address",
+                  hidetext: false,
+                  suffixIcon: null,
+                  textEditingController: _signUpController.address,
                   keyboard: TextInputType.emailAddress,
                 ),
                 SizedBox(
@@ -127,20 +139,20 @@ class SignUpView extends StatelessWidget {
                 SizedBox(
                   height: 40,
                 ),
-                // Align(
-                //   alignment: Alignment.centerRight,
-                //   child: GestureDetector(
-                //     onTap: () {
-                //       Get.toNamed(Routes.LOGIN);
-                //     },
-                //     child: Text("Back to Login",
-                //         style: textstyle.copyWith(
-                //             fontSize: 16, color: Color(0xff919294))),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: 30,
-                // )
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.LOGIN);
+                    },
+                    child: Text("Back to Login",
+                        style: textstyle.copyWith(
+                            fontSize: 16, color: Color(0xff919294))),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                )
               ],
             ),
           ),

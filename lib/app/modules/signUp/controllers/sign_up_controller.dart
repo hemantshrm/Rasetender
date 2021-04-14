@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:scrap_bid/app/data/constants.dart';
+import 'package:scrap_bid/app/modules/signUp/providers/registration_model_provider.dart';
+import 'package:scrap_bid/app/modules/signUp/registration_model_model.dart';
+import 'package:scrap_bid/app/modules/signUp/registration_response_model.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 class SignUpController extends GetxController {
@@ -10,6 +13,9 @@ class SignUpController extends GetxController {
   TextEditingController confirmPassword = TextEditingController();
   TextEditingController username = TextEditingController();
   TextEditingController phoneNo = TextEditingController();
+  TextEditingController address = TextEditingController();
+
+  RegistrationModelProvider _modelProvider= RegistrationModelProvider();
 
   void clearText() {
     email.clear();
@@ -17,9 +23,10 @@ class SignUpController extends GetxController {
     phoneNo.clear();
     password.clear();
     confirmPassword.clear();
+    address.clear();
   }
 
-  void validate() {
+  Future<void> validate() async {
     if (username.text.isEmpty) {
       errorSnackbar(msg: 'Enter Your Name');
     } else if (phoneNo.text.isEmpty) {
@@ -36,14 +43,30 @@ class SignUpController extends GetxController {
       errorSnackbar(msg: 'Password Don\'t Match');
     } else if (password.text.length < 8) {
       errorSnackbar(msg: "Password must be 8 digit");
-    } else {
+    }
+    else if(address.text==null&&address.text.isEmpty){
+      errorSnackbar(msg: 'Enter valid address');
+    }
+    else {
+      RegistrationModel _model= RegistrationModel(fullname: username.text,email: email.text,phone: phoneNo.text,password: password.text,cpassword: confirmPassword.text,address: address.text);
+
+      RegistrationResponse response= await _modelProvider.postRegistrationModel(_model).then((value) => handleApi(value));
+      print(response.toString());
+
+
+
+
+    }
+  }
+  handleApi(RegistrationResponse response){
+    if(response.status==1){
       Get.snackbar("Success", "",
           icon: Icon(Icons.person),
           // backgroundColor: Colors.green,
           colorText: Colors.green,
           duration: Duration(seconds: 2),
           overlayBlur: 3,
-          messageText: Text("Profile was Successfully Created"),
+          messageText: Text(response.msg),
           mainButton: TextButton(
               onPressed: () {
                 Get.toNamed(Routes.LOGIN);
@@ -55,10 +78,29 @@ class SignUpController extends GetxController {
           progressIndicatorBackgroundColor: Colors.green,
           showProgressIndicator: true);
       Future.delayed(const Duration(seconds: 2), () {
-        Get.toNamed(Routes.LOGIN);
+        Get.offAll(Routes.LOGIN);
         clearText();
       });
+    }else{
+      Get.snackbar("Failed", "",
+          icon: Icon(Icons.person),
+          // backgroundColor: Colors.green,
+          colorText: Colors.red,
+          duration: Duration(seconds: 2),
+          overlayBlur: 3,
+          messageText: Text(response.msg),
+          mainButton: TextButton(
+              onPressed: () {
+                Get.toNamed(Routes.LOGIN);
+              },
+              child: Text(
+                "Retry",
+                style: TextStyle(color: AppConstants.APP_THEME_COLOR),
+              )),
+          progressIndicatorBackgroundColor: Colors.red,
+          showProgressIndicator: true);
     }
+
   }
 
   void errorSnackbar({@required String msg}) {
