@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:scrap_bid/app/modules/detailView/bindings/detail_view_binding.dart';
+import 'package:scrap_bid/app/modules/detailView/views/detail_view.dart';
 import 'package:scrap_bid/app/modules/forgotPass/bindings/forgot_pass_binding.dart';
 import 'package:scrap_bid/app/modules/forgotPass/views/forgot_pass_view.dart';
 import 'package:scrap_bid/app/modules/home/bindings/home_binding.dart';
@@ -34,6 +36,11 @@ class AppPages {
       name: _Paths.SIGN_UP,
       page: () => SignUpView(),
       binding: SignUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_VIEW,
+      page: () => DetailViewView(),
+      binding: DetailViewBinding(),
     ),
   ];
 }

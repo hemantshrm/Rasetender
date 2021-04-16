@@ -2,7 +2,7 @@
     package="com.triazinesoft.scrap.scrap_bid">
    <application
         android:label="scrap_bid"
-
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

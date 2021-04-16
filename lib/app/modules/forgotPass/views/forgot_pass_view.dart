@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,10 +13,16 @@ class ForgotPassView extends GetView<ForgotPassController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Forgot Password",
+            style: GoogleFonts.montserrat(fontSize: 20)),
+        backgroundColor: AppConstants.APP_THEME_COLOR,
+      ),
+      backgroundColor: AppConstants.BACKGROUND_COLOR_BOTTOM,
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 30),
+            margin: EdgeInsets.symmetric(horizontal: 10),
             color: AppConstants.BACKGROUND_COLOR_BOTTOM,
             width: Get.width,
             height: Get.height,
@@ -24,36 +31,19 @@ class ForgotPassView extends GetView<ForgotPassController> {
                 SizedBox(
                   height: Get.height / 10,
                 ),
-                CircleAvatar(
-                  backgroundColor: AppConstants.APP_THEME_COLOR,
-                  radius: 60,
-                  child: Image.asset('assets/images/icon.png'),
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text("Metal Scrapper",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.black, fontSize: 20)),
-                    )),
                 SizedBox(
                   height: Get.height / 14,
                 ),
-                LoginButtons(
-                    icon: Icon(Icons.email_outlined),
-                    hintText: "Enter your email Id",
-                    heading: "Email Address",
+                LoginFields(
+                    hintText: "Your email Id",
+                    heading: "Email",
                     hidetext: false),
-                SizedBox(
-                  height: 40,
-                ),
                 SizedBox(
                   height: 40,
                 ),
                 MainButton(
                   title: "Submit",
-                  onpress: () {
+                  onPress: () {
                     Get.back();
                   },
                 ),
@@ -61,23 +51,13 @@ class ForgotPassView extends GetView<ForgotPassController> {
                   height: 30,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.SIGN_UP);
-                      },
-                      child: Text(
-                        "Sign Up",
-                        style: textstyle.copyWith(
-                            fontSize: 16, color: Color(0xff919294)),
-                      ),
-                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.LOGIN);
                       },
-                      child: Text("Back to Login",
+                      child: Text("Back to login",
                           style: textstyle.copyWith(
                               fontSize: 16, color: Color(0xff919294))),
                     ),
