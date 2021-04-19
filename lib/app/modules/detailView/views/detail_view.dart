@@ -36,7 +36,7 @@ class DetailViewView extends GetView<DetailViewController> {
                 child: controller.apiData.value.auctionDetail.materialImage !=
                         null
                     ? CachedNetworkImage(
-                        imageUrl: "http://via.placeholder.com/200x150",
+                        imageUrl: "${controller.apiData.value.auctionDetail.materialImage}",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
