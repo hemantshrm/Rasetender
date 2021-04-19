@@ -1,6 +1,6 @@
-import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +21,7 @@ class LoginView extends GetView<LoginController> {
       body: Stack(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 30),
+            margin: EdgeInsets.symmetric(horizontal: 10),
             color: AppConstants.BACKGROUND_COLOR_BOTTOM,
             width: Get.width,
             height: Get.height,
@@ -50,10 +50,10 @@ class LoginView extends GetView<LoginController> {
                 SizedBox(
                   height: Get.height / 14,
                 ),
-                LoginButtons(
+                LoginFields(
                   icon: Icon(Icons.email_outlined),
-                  hintText: "Enter your email Id",
-                  heading: "Email Address",
+                  hintText: "Your email id",
+                  heading: "Email",
                   hidetext: false,
                   suffixIcon: null,
                   onpress: () {},
@@ -64,10 +64,10 @@ class LoginView extends GetView<LoginController> {
                   keyboard: TextInputType.emailAddress,
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 Obx(
-                  () => LoginButtons(
+                  () => LoginFields(
                     icon: Icon(Icons.lock_outline_rounded),
                     hintText: "Enter your Password",
                     heading: "Password",
@@ -85,20 +85,42 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.FORGOT_PASS);
+                    },
+                    child: Text("Forgot Password?",
+                        style: textstyle.copyWith(
+                            fontSize: 16, color: Color(0xff919294))),
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
                 ),
                 MainButton(
                   title: "Login",
-                  onpress: () {
-                    controller.validate();
+                  onPress: () {
+                    Get.toNamed(Routes.HOME);
+                    // controller.validate();
                   },
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text(
+                      'Don\'t have an account ? ',
+                      style: textstyle.copyWith(
+                        fontSize: 16,
+                        color: Color(0xff919294),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.SIGN_UP);
@@ -106,16 +128,10 @@ class LoginView extends GetView<LoginController> {
                       child: Text(
                         "Sign Up",
                         style: textstyle.copyWith(
-                            fontSize: 16, color: Color(0xff919294)),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppConstants.TEXT_FIELD_HEADER),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.FORGOT_PASS);
-                      },
-                      child: Text("Forgot Password?",
-                          style: textstyle.copyWith(
-                              fontSize: 16, color: Color(0xff919294))),
                     ),
                   ],
                 )
@@ -129,10 +145,10 @@ class LoginView extends GetView<LoginController> {
 }
 
 class MainButton extends StatelessWidget {
-  MainButton({this.title, this.onpress});
+  MainButton({this.title, this.onPress});
 
   final String title;
-  final Function onpress;
+  final Function onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -140,8 +156,9 @@ class MainButton extends StatelessWidget {
       constraints:
           BoxConstraints.tightFor(width: Get.width, height: Get.height / 13),
       child: ElevatedButton(
-        onPressed: onpress,
+        onPressed: onPress,
         style: ElevatedButton.styleFrom(
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),
@@ -150,17 +167,17 @@ class MainButton extends StatelessWidget {
         child: Center(
             child: Text(
           title,
-          style: textstyle.copyWith(color: Colors.white),
+          style: textstyle.copyWith(color: Colors.white, fontSize: 23),
         )),
       ),
     );
   }
 }
 
-class LoginButtons extends StatelessWidget {
+class LoginFields extends StatelessWidget {
   Function(String) ontextChange;
 
-  LoginButtons(
+  LoginFields(
       {this.icon,
       this.hintText,
       this.heading,
@@ -183,77 +200,50 @@ class LoginButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClayContainer(
-      height: Get.height / 8.5,
-      width: Get.width,
-      color: Colors.white,
-      borderRadius: 20,
-      depth: 20,
-      spread: 5,
-      child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              heading,
-              style: GoogleFonts.montserrat(
-                  color: Color(0xffA1A1A1),
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FittedBox(
-              child: ClayContainer(
-                width: Get.width,
-                color: Colors.white,
-                spread: 2,
-                depth: 20,
-                borderRadius: 10,
-                emboss: true,
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    // override textfield's icon color when selected
-                    primaryColor: AppConstants.APP_THEME_COLOR,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Theme(
+          data: Theme.of(context).copyWith(
+            primaryColor: AppConstants.APP_THEME_COLOR,
+          ),
+          child: TextFormField(
+              keyboardType: keyboard,
+              cursorColor: AppConstants.APP_THEME_COLOR,
+              textInputAction: TextInputAction.unspecified,
+              maxLines: 1,
+              controller: textEditingController,
+              onChanged: (text) {
+                ontextChange(text);
+              },
+              obscureText:
+                  suffixIcon == null ? false : controller.obscureText.value,
+              autofocus: false,
+              style: textstyle,
+              textAlignVertical: TextAlignVertical.center,
+              decoration: InputDecoration(
+                  labelText: heading,
+                  labelStyle: GoogleFonts.ubuntu(
+                    color: AppConstants.TEXT_FIELD_HEADER,
+                    fontSize: 20,
                   ),
-                  child: TextFormField(
-                      keyboardType: keyboard,
-                      cursorColor: AppConstants.APP_THEME_COLOR,
-                      textInputAction: TextInputAction.unspecified,
-                      maxLines: 1,
-                      controller: textEditingController,
-                      onChanged: (text) {
-                        ontextChange(text);
-                      },
-                      obscureText: suffixIcon == null
-                          ? false
-                          : controller.obscureText.value,
-                      autofocus: false,
-                      style: textstyle,
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: icon,
-                          suffixIcon: suffixIcon == null
-                              ? null
-                              : IconButton(
-                                  icon: suffixIcon, onPressed: onpress),
-                          contentPadding: EdgeInsets.zero,
-                          focusedBorder:
-                              UnderlineInputBorder(borderSide: BorderSide.none),
-                          hintText: hintText,
-                          hintStyle: textstyle)),
-                ),
-              ),
-            ),
-          ],
+                  border: UnderlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                    borderSide: BorderSide(color: AppConstants.APP_THEME_COLOR),
+                  ),
+                  prefixIcon: icon,
+                  suffixIcon: suffixIcon == null
+                      ? null
+                      : IconButton(icon: suffixIcon, onPressed: onpress),
+                  // hintText: hintText,
+                  contentPadding: EdgeInsets.only(left: 2, bottom: 4),
+                  focusedBorder: UnderlineInputBorder(),
+                  hintStyle: textstyle)),
         ),
-      ),
+      ],
     );
   }
 }
 
-TextStyle textstyle = TextStyle(
-    color: Color(0xff6A6A6A), fontSize: 18, fontWeight: FontWeight.w500);
+TextStyle textstyle = GoogleFonts.ubuntu(
+    color: Color(0xff6A6A6A), fontSize: 20, fontWeight: FontWeight.w500);

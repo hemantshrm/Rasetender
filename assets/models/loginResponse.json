@@ -1,0 +1,17 @@
+{
+  "msg": "Login successfully.",
+  "data": {
+    "id": "2",
+    "fullname": "Monu Kuumar Parajapati",
+    "email": "monuk@triazinesoft.com",
+    "phone": "9717943954",
+    "address": "Ecotech -12, Greater Noida West",
+    "status": "1",
+    "approval_date": "2021-04-12 13:30:52",
+    "approved_by": "1",
+    "last_login": "2021-04-13 05:11:53",
+    "device_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvaWdsL3B1YmxpYy9hcGl2Mi9sb2dpblVzZXIiLCJpYXQiOjE1NTc4MjQ4NDIsImV4cCI6MTU2MDQ1Mjg0MiwibmJmIjoxNTU3ODI0ODQyLCJqdGkiOiJBemxNamp4NG8wUHNBSGxFIn0.1YvZL9LcrVA8uRMmhSzYbUV87UWLx6YQZulfgr8Quu50",
+    "device_id": null,
+    "created_on": "2021-04-12 18:58:13"
+  }
+}
