@@ -9,31 +9,31 @@ import 'package:scrap_bid/app/routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  // Future<bool> _onWillPop() {
-  //   return Get.defaultDialog(
-  //         radius: 5,
-  //         title: 'Are you sure?',
-  //         content: Text('Do you want to exit an App'),
-  //         actions: <Widget>[
-  //           FlatButton(
-  //             onPressed: () => Get.back(),
-  //             child: Text('No'),
-  //           ),
-  //           FlatButton(
-  //             onPressed: () {
-  //               SystemNavigator.pop();
-  //             },
-  //             child: Text('Yes'),
-  //           ),
-  //         ],
-  //       ) ??
-  //       false;
-  // }
+  Future<bool> _onWillPop() {
+    return Get.defaultDialog(
+          radius: 5,
+          title: 'Are you sure?',
+          content: Text('Do you want to exit an App'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Get.back(),
+              child: Text('No'),
+            ),
+            FlatButton(
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        ) ??
+        false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        // onWillPop: _onWillPop,
+        onWillPop: _onWillPop,
         child: Scaffold(
       appBar: AppBar(
         title: Text('Dashboard', style: GoogleFonts.montserrat(fontSize: 20)),
