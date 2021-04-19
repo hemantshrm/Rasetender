@@ -101,7 +101,7 @@ class DetailViewView extends GetView<DetailViewController> {
                           "${controller.apiData.value.auctionDetail.materialDescription}"),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Obx(
                   () => Date(
@@ -124,7 +124,7 @@ class DetailViewView extends GetView<DetailViewController> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: MainButton(
               title: "I am Interested",
               onPress: () {
@@ -152,7 +152,7 @@ class Details extends StatelessWidget {
           child: Text(
             heading,
             style: AppConstants.dashboardStyle
-                .copyWith(fontSize: 25, fontWeight: FontWeight.w500),
+                .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
           ),
         ),
         Container(
@@ -161,7 +161,7 @@ class Details extends StatelessWidget {
             title,
             maxLines: 10,
             maxFontSize: 20,
-            style: AppConstants.dashboardStyle.copyWith(fontSize: 25),
+            style: AppConstants.dashboardStyle.copyWith(fontSize: 18),
           ),
         ),
       ],
@@ -191,7 +191,7 @@ class Date extends StatelessWidget {
           title,
           maxLines: 10,
           maxFontSize: 20,
-          style: AppConstants.dashboardStyle.copyWith(fontSize: 25),
+          style: AppConstants.dashboardStyle.copyWith(fontSize: 18),
         ),
       ],
     );
