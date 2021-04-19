@@ -19,53 +19,48 @@ class DetailViewView extends GetView<DetailViewController> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              // width: Get.width,
-              child: Image.network(
-                  "https://www.worleybrotherssalvage.com/wp-content/uploads/2018/05/WorleyBrothers_519134010.jpg"),
-            ),
+          Container(
+            width: Get.width,
+            height: 250,
+            child: Image.network(
+                "https://www.worleybrotherssalvage.com/wp-content/uploads/2018/05/WorleyBrothers_519134010.jpg"),
           ),
           SizedBox(
             height: 20,
           ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Details(
-                    heading: "Title :",
-                    title: "Scrap Metal",
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Details(
-                    heading: "Description :",
-                    title:
-                        """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nis pulvinar facilisis justo mollis, auctor consequat ur Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex""",
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Date(
-                    heading: "Start Date :",
-                    title: "10/09/2020",
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Date(
-                    heading: "End Date   :",
-                    title: "10/09/2020",
-                  ),
-                ],
-              ),
+          Container(
+            margin: EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Details(
+                  heading: "Title :",
+                  title: "Scrap Metal",
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Details(
+                  heading: "Description :",
+                  title:
+                      """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nis pulvinar facilisis justo mollis, auctor consequat ur Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex""",
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Date(
+                  heading: "Start Date :",
+                  title: "10/09/2020",
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Date(
+                  heading: "End Date   :",
+                  title: "10/09/2020",
+                ),
+              ],
             ),
           ),
           Container(
@@ -122,23 +117,21 @@ class Date extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
-          child: Text(
-            heading,
-            style: AppConstants.dashboardStyle
-                .copyWith(fontSize: 25, fontWeight: FontWeight.w500),
-          ),
+        Text(
+          heading,
+          style: AppConstants.dashboardStyle
+              .copyWith(fontSize: 25, fontWeight: FontWeight.w500),
         ),
-        Container(
-          width: 200,
-          child: AutoSizeText(
-            title,
-            maxLines: 10,
-            maxFontSize: 20,
-            style: AppConstants.dashboardStyle.copyWith(fontSize: 25),
-          ),
+        SizedBox(
+          width: 10,
+        ),
+        AutoSizeText(
+          title,
+          maxLines: 10,
+          maxFontSize: 20,
+          style: AppConstants.dashboardStyle.copyWith(fontSize: 25),
         ),
       ],
     );

@@ -17,6 +17,7 @@ class ForgotPassView extends GetView<ForgotPassController> {
         title: Text("Forgot Password",
             style: GoogleFonts.montserrat(fontSize: 20)),
         backgroundColor: AppConstants.APP_THEME_COLOR,
+        centerTitle: true,
       ),
       backgroundColor: AppConstants.BACKGROUND_COLOR_BOTTOM,
       body: Stack(
@@ -35,16 +36,20 @@ class ForgotPassView extends GetView<ForgotPassController> {
                   height: Get.height / 14,
                 ),
                 LoginFields(
-                    hintText: "Your email Id",
-                    heading: "Email",
-                    hidetext: false),
+                  hintText: "Your email Id",
+                  heading: "Email",
+                  hidetext: false,
+                  keyboard: TextInputType.emailAddress,
+                  icon: Icon(Icons.email_outlined),
+                  textEditingController: controller.forgotPassEmail,
+                ),
                 SizedBox(
                   height: 40,
                 ),
                 MainButton(
                   title: "Submit",
                   onPress: () {
-                    Get.back();
+                    controller.submitEmail();
                   },
                 ),
                 SizedBox(

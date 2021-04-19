@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  fluttertoast: 8.0.4
+  double_back_to_close_app: 2.0.1
   auto_size_text: 2.1.0
   google_fonts: 2.0.0
   get: 4.1.3

@@ -1,6 +1,6 @@
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,127 +18,131 @@ class LoginView extends GetView<LoginController> {
     ]);
     return Scaffold(
       backgroundColor: AppConstants.BACKGROUND_COLOR_BOTTOM,
-      body: Stack(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            color: AppConstants.BACKGROUND_COLOR_BOTTOM,
-            width: Get.width,
-            height: Get.height,
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                SizedBox(
-                  height: Get.height / 10,
-                ),
-                CircleAvatar(
-                  backgroundColor: AppConstants.APP_THEME_COLOR,
-                  radius: 60,
-                  child: Image.asset(
-                    'assets/images/icon.png',
-                    fit: BoxFit.contain,
+      body: DoubleBackToCloseApp(
+        snackBar: const SnackBar(
+          content: Text('Tap back again to leave'),
+        ),
+        child: Stack(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              color: AppConstants.BACKGROUND_COLOR_BOTTOM,
+              width: Get.width,
+              height: Get.height,
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  SizedBox(
+                    height: Get.height / 10,
                   ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text("Metal Scrapper",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.black, fontSize: 20)),
-                    )),
-                SizedBox(
-                  height: Get.height / 14,
-                ),
-                LoginFields(
-                  icon: Icon(Icons.email_outlined),
-                  hintText: "Your email id",
-                  heading: "Email",
-                  hidetext: false,
-                  suffixIcon: null,
-                  onpress: () {},
-                  ontextChange: (text) {
-                    controller.setEmailString(text);
-                  },
-                  textEditingController: controller.email,
-                  keyboard: TextInputType.emailAddress,
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Obx(
-                  () => LoginFields(
-                    icon: Icon(Icons.lock_outline_rounded),
-                    hintText: "Enter your Password",
-                    heading: "Password",
-                    suffixIcon: controller.obscureText.value
-                        ? Icon(Icons.visibility_outlined)
-                        : Icon(Icons.visibility_off_outlined),
-                    hidetext: controller.obscureText.value,
-                    onpress: () {
-                      controller.toggle();
-                    },
+                  CircleAvatar(
+                    backgroundColor: AppConstants.APP_THEME_COLOR,
+                    radius: 60,
+                    child: Image.asset(
+                      'assets/images/icon.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text("Metal Scrapper",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.black, fontSize: 20)),
+                      )),
+                  SizedBox(
+                    height: Get.height / 14,
+                  ),
+                  LoginFields(
+                    icon: Icon(Icons.email_outlined),
+                    hintText: "Your email id",
+                    heading: "Email",
+                    hidetext: false,
+                    suffixIcon: null,
+                    onpress: () {},
                     ontextChange: (text) {
-                      controller.setPassString(text);
+                      controller.setEmailString(text);
                     },
-                    textEditingController: controller.password,
+                    textEditingController: controller.email,
+                    keyboard: TextInputType.emailAddress,
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.FORGOT_PASS);
-                    },
-                    child: Text("Forgot Password?",
-                        style: textstyle.copyWith(
-                            fontSize: 16, color: Color(0xff919294))),
+                  SizedBox(
+                    height: 25,
                   ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                MainButton(
-                  title: "Login",
-                  onPress: () {
-                    Get.toNamed(Routes.HOME);
-                    // controller.validate();
-                  },
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Don\'t have an account ? ',
-                      style: textstyle.copyWith(
-                        fontSize: 16,
-                        color: Color(0xff919294),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Get.toNamed(Routes.SIGN_UP);
+                  Obx(
+                    () => LoginFields(
+                      icon: Icon(Icons.lock_outline_rounded),
+                      hintText: "Enter your Password",
+                      heading: "Password",
+                      suffixIcon: controller.obscureText.value
+                          ? Icon(Icons.visibility_outlined)
+                          : Icon(Icons.visibility_off_outlined),
+                      hidetext: controller.obscureText.value,
+                      onpress: () {
+                        controller.toggle();
                       },
-                      child: Text(
-                        "Sign Up",
-                        style: textstyle.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppConstants.TEXT_FIELD_HEADER),
-                      ),
+                      ontextChange: (text) {
+                        controller.setPassString(text);
+                      },
+                      textEditingController: controller.password,
                     ),
-                  ],
-                )
-              ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.FORGOT_PASS);
+                      },
+                      child: Text("Forgot Password?",
+                          style: textstyle.copyWith(
+                              fontSize: 16, color: Color(0xff919294))),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  MainButton(
+                    title: "Login",
+                    onPress: () {
+                      controller.validate();
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account ? ',
+                        style: textstyle.copyWith(
+                          fontSize: 16,
+                          color: Color(0xff919294),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.SIGN_UP);
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: textstyle.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: AppConstants.TEXT_FIELD_HEADER),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
