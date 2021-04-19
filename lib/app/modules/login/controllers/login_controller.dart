@@ -62,7 +62,7 @@ class LoginController extends GetxController {
       errorSnackbar(msg: "Password must be 8 digit");
     } else {
       var deviceId = await _getId();
-      isLoading(true);
+
       try {
         LoginModel _model = LoginModel(
             username: email.text,
@@ -87,19 +87,7 @@ class LoginController extends GetxController {
 
   handleApi(LoginResponse response) {
     if (response.status == 1) {
-      Get.snackbar('${response.msg}', "",
-          icon: Icon(Icons.person),
-          // backgroundColor: Colors.green,
-          colorText: Colors.green,
-          duration: Duration(seconds: 2),
-          overlayBlur: 3,
-          messageText: Text(response.msg),
-          progressIndicatorBackgroundColor: Colors.green,
-          showProgressIndicator: true);
-      Future.delayed(const Duration(seconds: 3), () {
-        isLoading(false);
-        Get.toNamed(Routes.HOME);
-      });
+      Get.toNamed(Routes.HOME);
     } else {
       isLoading(false);
       errorSnackbar(msg: response.msg);
@@ -128,7 +116,7 @@ class LoginController extends GetxController {
             style: TextStyle(color: Colors.black),
           )),
       snackPosition: SnackPosition.TOP,
-      backgroundColor: AppConstants.SNACK_BG_COLOR,
+      backgroundColor: AppConstants.SNACK_BG_COLOR_SUCCESS,
     );
   }
 }

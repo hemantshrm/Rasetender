@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:scrap_bid/app/modules/home/auction_list_model.dart';
 import 'package:scrap_bid/app/modules/home/providers/auction_list_provider.dart';
 
-class HomeController extends GetxController with StateMixin<List<AuctionList>> {
+class DataController extends GetxController with StateMixin<List<AuctionList>> {
   var isLoading = true.obs;
   var apiData = <AuctionList>[].obs;
 

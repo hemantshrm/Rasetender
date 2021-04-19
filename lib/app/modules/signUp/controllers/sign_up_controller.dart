@@ -28,9 +28,22 @@ class SignUpController extends GetxController {
     address.clear();
   }
 
+//   int() {
+//     String s = "ABCDE1234F"; // get your editext value here
+//     Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+//
+//     Matcher matcher = pattern.matcher(s);
+// // Check if pattern matches
+//     if (matcher.matches()) {
+//       Log.i("Matching", "Yes");
+//     }
+//   }
+
   Future<void> validate() async {
     if (username.text.isEmpty) {
       errorSnackbar(msg: 'Enter Your Name');
+    } else if (panNum.text.length != 10) {
+      errorSnackbar(msg: 'Invalid PAN Number.');
     } else if (phoneNo.text.isEmpty) {
       errorSnackbar(msg: "Enter your phone Number.");
     } else if (!GetUtils.isPhoneNumber(phoneNo.text)) {
@@ -39,13 +52,9 @@ class SignUpController extends GetxController {
       errorSnackbar(msg: 'Enter Email Address');
     } else if (companyName.text.isEmpty) {
       errorSnackbar(msg: 'Enter your Company Name');
-    } else if (panNum.text.isEmpty) {
-      errorSnackbar(msg: 'Enter PAN Number.');
-    } else if (panNum.text.length < 10) {
-      errorSnackbar(msg: 'Invalid PAN Number.');
     } else if (gstNum.text.isEmpty) {
       errorSnackbar(msg: 'Enter GST Number.');
-    } else if (gstNum.text.length < 15) {
+    } else if (gstNum.text.length != 15) {
       errorSnackbar(msg: 'Invalid GST Number.');
     } else if (!GetUtils.isEmail(email.text)) {
       errorSnackbar(msg: 'Invalid Email');
@@ -64,7 +73,10 @@ class SignUpController extends GetxController {
           phone: phoneNo.text,
           password: password.text,
           cpassword: confirmPassword.text,
-          address: address.text);
+          address: address.text,
+          pan: panNum.text,
+          gst: gstNum.text,
+          companyname: companyName.text);
 
       RegistrationResponse response = await _modelProvider
           .postRegistrationModel(_model)
@@ -77,14 +89,13 @@ class SignUpController extends GetxController {
     if (response.status == 1) {
       Get.snackbar("Success", "",
           icon: Icon(Icons.person),
-          // backgroundColor: Colors.green,
           colorText: Colors.green,
           duration: Duration(seconds: 2),
           overlayBlur: 3,
           messageText: Text(response.msg),
           mainButton: TextButton(
               onPressed: () {
-                Get.toNamed(Routes.LOGIN);
+                Get.back();
               },
               child: Text(
                 "Login",
@@ -105,7 +116,7 @@ class SignUpController extends GetxController {
           messageText: Text(response.msg),
           mainButton: TextButton(
               onPressed: () {
-                Get.toNamed(Routes.LOGIN);
+                Get.back();
               },
               child: Text(
                 "Retry",
@@ -138,7 +149,7 @@ class SignUpController extends GetxController {
             style: TextStyle(color: AppConstants.APP_THEME_COLOR),
           )),
       snackPosition: SnackPosition.TOP,
-      backgroundColor: AppConstants.SNACK_BG_COLOR,
+      backgroundColor: AppConstants.SNACK_BG_COLOR_SUCCESS,
       // colorText: Colors.white
     );
   }
