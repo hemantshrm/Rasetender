@@ -10,7 +10,9 @@ class AuctionListProvider {
   static Future<List<AuctionList>> fetchData() async {
     http.Response response = await http.get(
         Uri.parse('${AppConstants.BASE_URL + AppConstants.AUCTION_LIST_URL}'),
-        headers: {"Content-Type": "application/json"});
+        headers: {
+          "Content-Type": "application/json",
+        });
     if (response.statusCode == 200) {
       String data = response.body;
       print(data);

@@ -12,7 +12,9 @@ class LoginModelProvider extends GetConnect {
 
     var response = await http.post(
         Uri.parse('${AppConstants.BASE_URL + AppConstants.LOGIN_URL}'),
-        headers: {"Content-Type": "application/json"},
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: body);
     LoginResponse _value = LoginResponse.fromJson(
       jsonDecode(response.body),
