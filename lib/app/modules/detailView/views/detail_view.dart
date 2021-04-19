@@ -19,11 +19,13 @@ class DetailViewView extends GetView<DetailViewController> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          Container(
-            width: Get.width,
-            height: 250,
-            child: Image.network(
-                "https://www.worleybrotherssalvage.com/wp-content/uploads/2018/05/WorleyBrothers_519134010.jpg"),
+          Obx(
+            () => Container(
+              width: Get.width,
+              height: 250,
+              child: Image.network(
+                  "${controller.apiData.value.auctionDetail.image}"),
+            ),
           ),
           SizedBox(
             height: 20,
@@ -34,31 +36,41 @@ class DetailViewView extends GetView<DetailViewController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Details(
-                  heading: "Title :",
-                  title: "",
+                Obx(
+                  () => Details(
+                    heading: "Title :",
+                    title:
+                        "${controller.apiData.value.auctionDetail.materialCode}",
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Details(
-                  heading: "Description :",
-                  title:
-                      """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nis pulvinar facilisis justo mollis, auctor consequat ur Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex""",
+                Obx(
+                  () => Details(
+                      heading: "Description :",
+                      title:
+                          "${controller.apiData.value.auctionDetail.materialDescription}"),
                 ),
                 SizedBox(
                   height: 40,
                 ),
-                Date(
-                  heading: "Start Date :",
-                  title: "10/09/2020",
+                Obx(
+                  () => Date(
+                    heading: "Start Date :",
+                    title:
+                        "${controller.apiData.value.auctionDetail.auctionStartDate}",
+                  ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Date(
-                  heading: "End Date   :",
-                  title: "10/09/2020",
+                Obx(
+                  () => Date(
+                    heading: "End Date   :",
+                    title:
+                        "${controller.apiData.value.auctionDetail.auctionStartDate}",
+                  ),
                 ),
               ],
             ),
