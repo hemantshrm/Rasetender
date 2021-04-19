@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -20,11 +22,57 @@ class DetailViewView extends GetView<DetailViewController> {
         shrinkWrap: true,
         children: [
           Obx(
-            () => Container(
-              width: Get.width,
-              height: 250,
-              child: Image.network(
-                  "${controller.apiData.value.auctionDetail.image}"),
+            () => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: Get.width,
+                height: 250,
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppConstants.APP_THEME_COLOR,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+
+                child: controller.apiData.value.auctionDetail.materialImage !=
+                        null
+                    ? CachedNetworkImage(
+                        imageUrl: "http://via.placeholder.com/200x150",
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                    Colors.red, BlendMode.colorBurn)),
+                          ),
+                        ),
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              Icons.image_not_supported_sharp,
+                              size: 50,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("No Image Available"),
+                          )
+                        ],
+                      ),
+                // Carousel(
+                //   images: [
+                //
+                //   ],
+                // )
+              ),
             ),
           ),
           SizedBox(
@@ -134,7 +182,7 @@ class Date extends StatelessWidget {
         Text(
           heading,
           style: AppConstants.dashboardStyle
-              .copyWith(fontSize: 25, fontWeight: FontWeight.w500),
+              .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
         ),
         SizedBox(
           width: 10,

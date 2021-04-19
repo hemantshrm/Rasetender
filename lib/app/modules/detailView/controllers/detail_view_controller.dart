@@ -5,7 +5,7 @@ import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provid
 
 class DetailViewController extends GetxController {
   var isLoading = true.obs;
-  var apiData = AuctionDetailModel().obs;
+  var apiData = AuctionDetailModel(auctionDetail: AuctionDetail(materialImage: '')).obs;
 
   @override
   void onInit() {
