@@ -1,0 +1,17 @@
+{
+  "auction_detail": {
+    "id": "1",
+    "material_code": "dfdsf",
+    "plant_code": "gfhgfhgfj",
+    "material_description": "hgjhgkk",
+    "material_image": "",
+    "material_type": "fdgj iofgjhoityj uyuokyt opuy",
+    "material_weight": "KG",
+    "auction_start_date": "2021-04-16",
+    "auction_close_date": "2021-04-30",
+    "created": "2021-04-16 17:44:11",
+    "image": null
+  },
+  "status": 1,
+  "msg": "Success"
+}

@@ -36,7 +36,7 @@ class DetailViewView extends GetView<DetailViewController> {
               children: [
                 Details(
                   heading: "Title :",
-                  title: "Scrap Metal",
+                  title: "",
                 ),
                 SizedBox(
                   height: 20,
