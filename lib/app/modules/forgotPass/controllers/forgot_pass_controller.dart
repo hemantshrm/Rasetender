@@ -32,7 +32,7 @@ class ForgotPassController extends GetxController {
   handleApi(ForgotPassResponseModel response) {
     if (response.status == 1) {
       Get.defaultDialog(
-        title: "Success",
+        // title: "Success",
         titleStyle: GoogleFonts.montserrat(color: Colors.green),
         content: Text(
           "${response.msg}",

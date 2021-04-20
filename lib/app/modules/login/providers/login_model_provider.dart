@@ -6,7 +6,6 @@ import 'package:scrap_bid/app/modules/login/login_model.dart';
 import 'package:scrap_bid/app/modules/login/login_response_model.dart';
 
 class LoginModelProvider extends GetConnect {
-  var isLoading = true.obs;
   Future<LoginResponse> postRegistrationModel(LoginModel _model) async {
     var body = json.encode(_model.toJson());
 
@@ -21,7 +20,7 @@ class LoginModelProvider extends GetConnect {
     );
     print("${response.statusCode}");
     print("${response.body}");
-    isLoading(false);
+
     return _value;
   }
 }

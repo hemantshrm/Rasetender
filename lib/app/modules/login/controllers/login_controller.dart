@@ -4,6 +4,7 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/login/login_model.dart';
 import 'package:scrap_bid/app/modules/login/login_response_model.dart';
@@ -18,7 +19,7 @@ class LoginController extends GetxController {
   final emailText = ''.obs;
   var isLoading = false.obs;
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-
+  final box = GetStorage();
   LoginModelProvider _loginModelProvider = LoginModelProvider();
 
   @override
@@ -61,15 +62,18 @@ class LoginController extends GetxController {
     } else if (password.text.length < 8) {
       errorSnackbar(msg: "Password must be 8 digit");
     } else {
-      var deviceId = await _getId();
+      var deviceInfo = await _getId();
+
+      box.write("deviceId", deviceInfo.androidId);
+      var andId = box.read("deviceId");
+      print(andId);
 
       try {
         LoginModel _model = LoginModel(
             username: email.text,
             password: password.text,
-            deviceId: Platform.isAndroid
-                ? deviceId.androidId
-                : deviceId.identifierForVendor,
+            deviceId:
+                Platform.isAndroid ? andId : deviceInfo.identifierForVendor,
             deviceToken: AppConstants.DEVICE_TOKEN,
             deviceType: Platform.isAndroid ? "Android" : "IOS");
 
@@ -79,8 +83,6 @@ class LoginController extends GetxController {
         print(response.toString());
       } catch (e) {
         print(e);
-      } finally {
-        isLoading(false);
       }
     }
   }

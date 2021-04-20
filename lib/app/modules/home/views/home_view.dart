@@ -41,7 +41,12 @@ class HomeView extends GetView<HomeController> {
             centerTitle: true,
             automaticallyImplyLeading: false,
             backgroundColor: AppConstants.APP_THEME_COLOR,
-            actions: [Icon(Icons.notification_important),SizedBox(width: 20,)],
+            actions: [
+              Icon(Icons.notification_important),
+              SizedBox(
+                width: 20,
+              )
+            ],
           ),
           body: controller.obx(
             (state) => ListView.separated(
@@ -60,7 +65,6 @@ class HomeView extends GetView<HomeController> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
                         child: Row(
@@ -92,10 +96,10 @@ class HomeView extends GetView<HomeController> {
                                             '${controller.apiData.value[index].materialCode}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                              fontSize: 18,
-                                              color:   AppConstants.APP_THEME_COLOR,
-                                              fontWeight: FontWeight.w500
-                                            )),
+                                                fontSize: 18,
+                                                color: AppConstants
+                                                    .APP_THEME_COLOR,
+                                                fontWeight: FontWeight.w500)),
                                       )
                                     ],
                                   ),
@@ -123,8 +127,8 @@ class HomeView extends GetView<HomeController> {
                                             .copyWith(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 16,
-                                                color:
-                                                    AppConstants.APP_THEME_COLOR),
+                                                color: AppConstants
+                                                    .APP_THEME_COLOR),
                                       ),
                                       Text(
                                         '${controller.apiData.value[index].auctionCloseDate}',

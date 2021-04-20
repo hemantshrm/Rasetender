@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -36,7 +35,8 @@ class DetailViewView extends GetView<DetailViewController> {
                 child: controller.apiData.value.auctionDetail.materialImage !=
                         null
                     ? CachedNetworkImage(
-                        imageUrl: "${controller.apiData.value.auctionDetail.materialImage}",
+                        imageUrl:
+                            "${controller.apiData.value.auctionDetail.materialImage}",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -128,7 +128,7 @@ class DetailViewView extends GetView<DetailViewController> {
             child: MainButton(
               title: "I am Interested",
               onPress: () {
-                Get.back();
+                controller.bidSubmit();
               },
             ),
           )

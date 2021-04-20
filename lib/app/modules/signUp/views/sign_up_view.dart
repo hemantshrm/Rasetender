@@ -6,7 +6,6 @@ import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/login/controllers/login_controller.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 import 'package:scrap_bid/app/modules/signUp/controllers/sign_up_controller.dart';
-import 'package:scrap_bid/app/routes/app_pages.dart';
 
 class SignUpView extends StatelessWidget {
   final LoginController _logController =
@@ -19,7 +18,7 @@ class SignUpView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Sign-up", style: GoogleFonts.montserrat(fontSize: 20)),
+        title: Text("Sign Up", style: GoogleFonts.montserrat(fontSize: 20)),
         backgroundColor: AppConstants.APP_THEME_COLOR,
       ),
       backgroundColor: AppConstants.BACKGROUND_COLOR_BOTTOM,
