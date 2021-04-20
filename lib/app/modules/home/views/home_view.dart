@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
+import 'package:scrap_bid/app/modules/login/controllers/login_controller.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -39,15 +42,15 @@ class HomeView extends GetView<HomeController> {
             title:
                 Text('Auctions', style: GoogleFonts.montserrat(fontSize: 20)),
             centerTitle: true,
-            automaticallyImplyLeading: false,
             backgroundColor: AppConstants.APP_THEME_COLOR,
             actions: [
-              Icon(Icons.notification_important),
+              Icon(Icons.filter_alt_outlined),
               SizedBox(
                 width: 20,
               )
             ],
           ),
+          drawer: HomeDrawer(),
           body: controller.obx(
             (state) => ListView.separated(
                 shrinkWrap: true,
@@ -61,7 +64,9 @@ class HomeView extends GetView<HomeController> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.DETAIL_VIEW);
+                      print(controller.apiData[index].id);
+                      Get.toNamed(Routes.DETAIL_VIEW,
+                          arguments: controller.apiData[index].id);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -165,5 +170,65 @@ class HomeView extends GetView<HomeController> {
             onError: (error) => Text(error),
           ),
         ));
+  }
+}
+
+class HomeDrawer extends GetView<HomeController> {
+  HomeDrawer({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: AppConstants.APP_THEME_COLOR),
+            accountName: controller.userData.value != null
+                ? Text(controller.userData.value.fullname)
+                : Text("Login Please"),
+            accountEmail: controller.userData.value != null
+                ? Text(controller.userData.value.email)
+                : Text("Login Please"),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
+                  ? AppConstants.APP_THEME_COLOR
+                  : Colors.white,
+              child: Text(
+                "${controller.userData.value.fullname[0]}",
+                style: TextStyle(fontSize: 40.0),
+              ),
+            ),
+          ),
+          ListTile(
+            title: TileText('Auction Result'),
+            leading: Icon(
+              Icons.receipt,
+              color: AppConstants.APP_THEME_COLOR,
+            ),
+            onTap: () {
+              Get.back();
+            },
+          ),
+          ListTile(
+            title: TileText('Sign Out'),
+            leading: Icon(Icons.logout, color: AppConstants.APP_THEME_COLOR),
+            onTap: () {
+              Get.offAndToNamed(Routes.LOGIN);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TileText extends StatelessWidget {
+  const TileText(this.title);
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    return Text(title, style: TextStyle(fontSize: 16.0));
   }
 }

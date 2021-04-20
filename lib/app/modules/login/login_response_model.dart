@@ -1,14 +1,14 @@
 class LoginResponse {
   String msg;
   int status;
-  Data data;
+  UserData data;
 
   LoginResponse({this.msg, this.status, this.data});
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
     status = json['status'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new UserData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class LoginResponse {
   }
 }
 
-class Data {
+class UserData {
   String id;
   String fullname;
   String email;
@@ -36,7 +36,7 @@ class Data {
   String createdOn;
   String token;
 
-  Data(
+  UserData(
       {this.id,
       this.fullname,
       this.email,
@@ -50,7 +50,7 @@ class Data {
       this.createdOn,
       this.token});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     fullname = json['fullname'];
     email = json['email'];

@@ -35,7 +35,8 @@ class DetailViewController extends GetxController {
 // TODO : STORE THE AUCTION ID AND USERID
   Future<void> bidSubmit() async {
     try {
-      BidSubmitModel _model = BidSubmitModel(userId: "", auctionId: "");
+      BidSubmitModel _model =
+          BidSubmitModel(userId: "", auctionId: Get.arguments);
 
       BidSubmitResponse response = await bidsubmitprovider
           .postBidSubmit(_model)
@@ -47,9 +48,8 @@ class DetailViewController extends GetxController {
   }
 }
 
-// TODO : API FLAW IN RESPONSE
 handleApi(BidSubmitResponse response) {
-  if (response.status == "success") {
+  if (response.status == 1) {
     Get.defaultDialog(
       titleStyle: GoogleFonts.montserrat(color: Colors.green),
       content: Text(

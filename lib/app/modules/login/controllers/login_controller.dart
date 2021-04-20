@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +12,7 @@ import 'package:scrap_bid/app/modules/login/login_model.dart';
 import 'package:scrap_bid/app/modules/login/login_response_model.dart';
 import 'package:scrap_bid/app/modules/login/providers/login_model_provider.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   TextEditingController email = TextEditingController();
@@ -17,15 +20,23 @@ class LoginController extends GetxController {
   final obscureText = true.obs;
   final passwordText = ''.obs;
   final emailText = ''.obs;
-  var isLoading = false.obs;
+  static const _chars = AppConstants.DEVICE_TOKEN;
+  Random _rnd = Random();
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   final box = GetStorage();
   LoginModelProvider _loginModelProvider = LoginModelProvider();
+  SharedPreferences pref;
+
+  void clear() {
+    email.clear();
+    password.clear();
+  }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     _getId();
+    pref = await SharedPreferences.getInstance();
   }
 
   Future _getId() async {
@@ -51,6 +62,9 @@ class LoginController extends GetxController {
     emailText.value = text;
   }
 
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
   Future<void> validate() async {
     if (email.text.isEmpty) {
       errorSnackbar(msg: 'Enter Email Address');
@@ -74,7 +88,7 @@ class LoginController extends GetxController {
             password: password.text,
             deviceId:
                 Platform.isAndroid ? andId : deviceInfo.identifierForVendor,
-            deviceToken: AppConstants.DEVICE_TOKEN,
+            deviceToken: getRandomString(265),
             deviceType: Platform.isAndroid ? "Android" : "IOS");
 
         LoginResponse response = await _loginModelProvider
@@ -89,9 +103,12 @@ class LoginController extends GetxController {
 
   handleApi(LoginResponse response) {
     if (response.status == 1) {
+      String user = jsonEncode(UserData.fromJson(response.data.toJson()));
+      pref.setString('userData', user);
+      clear();
       Get.toNamed(Routes.HOME);
+      clear();
     } else {
-      isLoading(false);
       errorSnackbar(msg: response.msg);
     }
   }

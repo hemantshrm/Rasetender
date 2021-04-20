@@ -1,5 +1,5 @@
 class BidSubmitResponse {
-  String status;
+  int status;
   String msg;
   Data data;
 
