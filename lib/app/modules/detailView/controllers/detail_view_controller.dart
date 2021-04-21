@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,17 +8,21 @@ import 'package:scrap_bid/app/modules/detailView/auction_detail_model.dart';
 import 'package:scrap_bid/app/modules/detailView/bid_submit_model.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
 import 'package:scrap_bid/app/modules/detailView/bid_submit_response.dart';
+import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
+import 'package:scrap_bid/app/modules/login/login_response_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailViewController extends GetxController {
   var isLoading = true.obs;
   var apiData =
       AuctionDetailModel(auctionDetail: AuctionDetail(materialImage: '')).obs;
   AuctionDetailProvider bidsubmitprovider = AuctionDetailProvider();
-
+  SharedPreferences _preferences;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     fetchDetailView();
     super.onInit();
+    _preferences = await SharedPreferences.getInstance();
   }
 
   void fetchDetailView() async {
@@ -32,11 +38,13 @@ class DetailViewController extends GetxController {
     }
   }
 
-// TODO : STORE THE AUCTION ID AND USERID
   Future<void> bidSubmit() async {
+    Map userMap = await jsonDecode(_preferences.getString('userData'));
+    UserData user = UserData.fromJson(userMap);
+
     try {
       BidSubmitModel _model =
-          BidSubmitModel(userId: "", auctionId: Get.arguments);
+          BidSubmitModel(userId: user.id, auctionId: Get.arguments);
 
       BidSubmitResponse response = await bidsubmitprovider
           .postBidSubmit(_model)
@@ -50,8 +58,7 @@ class DetailViewController extends GetxController {
 
 handleApi(BidSubmitResponse response) {
   if (response.status == 1) {
-
-
+    Get.to(SubmitBidScreen());
   } else {
     Get.defaultDialog(
       titleStyle: GoogleFonts.montserrat(color: Colors.green),
@@ -71,5 +78,3 @@ handleApi(BidSubmitResponse response) {
     );
   }
 }
-
-

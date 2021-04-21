@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:scrap_bid/app/data/constants.dart';
+import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 
 import '../controllers/detail_view_controller.dart';
@@ -129,6 +130,7 @@ class DetailViewView extends GetView<DetailViewController> {
               title: "I am Interested",
               onPress: () {
                 controller.bidSubmit();
+                // Get.to(SubmitBidScreen());
               },
             ),
           )

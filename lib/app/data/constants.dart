@@ -17,7 +17,8 @@ class AppConstants {
   static const String LOGIN_URL = 'login';
   static const String AUCTION_LIST_URL = 'auctions';
   static const String FORGOT_PASS_URL = 'forgotpassword';
-  static const String AUCTION_DETAIL_URL = 'auction_detail/1';
+  static const String AUCTION_DETAIL_URL = 'auction_detail';
+  static const String BID_RESULT_URL = 'bid_result';
   static const String BID_SUBMIT_URL = 'bid_submit';
   static const String DEVICE_TOKEN =
       "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMsInlzcyI6Imh0dHA6Ly9sb2NhbGhvc3QvaWdsL3B1YmxpYy9hcGl2Mi9sb2dpblVzZXIiLCJpYXQiOjE1NTc4MjQ4NDIsImV4cCI6MTU2MDQ1Mjg0MiwibmJmIjoxNTU3ODI0ODQyLCJqdGkiOiJBemxNamp4NG8wUHNBSGxFIn0.1YvZL9LcrVA8uRMmhSuYbUV87UWLx6YQZulfgr8Quu81";
@@ -25,4 +26,7 @@ class AppConstants {
 //==========================================================================================/api
 
   static const TextStyle dashboardStyle = TextStyle(fontSize: 20);
+
+  //============================================================================================/App Constants
+
 }

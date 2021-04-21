@@ -30,7 +30,7 @@ class LoginController extends GetxController {
   final box = GetStorage();
   LoginModelProvider _loginModelProvider = LoginModelProvider();
   SharedPreferences pref;
-
+  var token;
   void clear() {
     email.clear();
     password.clear();
@@ -44,7 +44,7 @@ class LoginController extends GetxController {
         .then((RemoteMessage message) {
       if (message != null) {}
     });
-    var token = await FirebaseMessaging.instance.getToken();
+    token = await FirebaseMessaging.instance.getToken();
 
     print(token);
 
@@ -113,7 +113,7 @@ class LoginController extends GetxController {
 
       box.write("deviceId", deviceInfo.androidId);
       var andId = box.read("deviceId");
-      print(andId);
+      // print(andId);
 
       try {
         LoginModel _model = LoginModel(
@@ -121,7 +121,7 @@ class LoginController extends GetxController {
             password: password.text,
             deviceId:
                 Platform.isAndroid ? andId : deviceInfo.identifierForVendor,
-            deviceToken: getRandomString(265),
+            deviceToken: token,
             deviceType: Platform.isAndroid ? "Android" : "IOS");
 
         LoginResponse response = await _loginModelProvider
