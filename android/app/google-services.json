@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "757578504452",
+    "project_id": "scrapbid-c6ec1",
+    "storage_bucket": "scrapbid-c6ec1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757578504452:android:0d2f675a526678ca3b1851",
+        "android_client_info": {
+          "package_name": "com.triazinesoft.scrap.scrap_bid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757578504452-k7hjdg9jlvp4mopeb2q7f6vndpq2ajed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxuXBdQzjfSgAWo1vWAuOsHeqe6AOcyRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757578504452-k7hjdg9jlvp4mopeb2q7f6vndpq2ajed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

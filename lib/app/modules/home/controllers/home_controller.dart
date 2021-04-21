@@ -15,6 +15,9 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
 
   @override
   Future<void> onInit() async {
+
+
+
     fetchProducts();
     super.onInit();
     pref = await SharedPreferences.getInstance();

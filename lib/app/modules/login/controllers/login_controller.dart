@@ -3,8 +3,10 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:device_info/device_info.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrap_bid/app/data/constants.dart';
@@ -13,6 +15,8 @@ import 'package:scrap_bid/app/modules/login/login_response_model.dart';
 import 'package:scrap_bid/app/modules/login/providers/login_model_provider.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../main.dart';
 
 class LoginController extends GetxController {
   TextEditingController email = TextEditingController();
@@ -35,8 +39,37 @@ class LoginController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage message) {
+      if (message != null) {}
+    });
+    var token = await FirebaseMessaging.instance.getToken();
+
+    print(token);
+
     _getId();
     pref = await SharedPreferences.getInstance();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification notification = message.notification;
+      AndroidNotification android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                channel.description,
+                // TODO add a proper drawable resource to android, for now using
+                //      one that already exists in example app.
+                icon: 'launch_background',
+              ),
+            ));
+      }
+    });
   }
 
   Future _getId() async {
