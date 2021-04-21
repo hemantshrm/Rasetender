@@ -159,14 +159,8 @@ class HomeView extends GetView<HomeController> {
                     ),
                   );
                 }),
-
-            // here you can put your custom loading indicator, but
-            // by default would be Center(child:CircularProgressIndicator())
             onLoading: Center(child: CircularProgressIndicator()),
             onEmpty: Text('No data found'),
-
-            // here also you can set your own error widget, but by
-            // default will be an Center(child:Text(error))
             onError: (error) => Text(error),
           ),
         ));
@@ -174,10 +168,6 @@ class HomeView extends GetView<HomeController> {
 }
 
 class HomeDrawer extends GetView<HomeController> {
-  HomeDrawer({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Drawer(

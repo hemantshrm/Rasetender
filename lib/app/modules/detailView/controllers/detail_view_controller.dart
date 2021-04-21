@@ -50,6 +50,9 @@ class DetailViewController extends GetxController {
 
 handleApi(BidSubmitResponse response) {
   if (response.status == 1) {
+
+
+  } else {
     Get.defaultDialog(
       titleStyle: GoogleFonts.montserrat(color: Colors.green),
       content: Text(
@@ -58,7 +61,7 @@ handleApi(BidSubmitResponse response) {
         textScaleFactor: 1.3,
       ),
       actions: <Widget>[
-        ElevatedButton(
+        FlatButton(
           onPressed: () {
             Get.back();
           },
@@ -66,33 +69,7 @@ handleApi(BidSubmitResponse response) {
         ),
       ],
     );
-  } else {
-    errorSnackbar(msg: response.msg);
   }
 }
 
-void errorSnackbar({@required String msg}) {
-  return Get.rawSnackbar(
-    message: '$msg',
-    margin: EdgeInsets.symmetric(horizontal: 10),
-    borderRadius: 8,
-    isDismissible: true,
-    dismissDirection: SnackDismissDirection.HORIZONTAL,
-    icon: Icon(
-      Icons.warning_amber_rounded,
-      color: Colors.white,
-    ),
-    overlayBlur: 1,
-    shouldIconPulse: true,
-    mainButton: TextButton(
-        onPressed: () {
-          Get.back();
-        },
-        child: Text(
-          "Dismiss",
-          style: TextStyle(color: Colors.black),
-        )),
-    snackPosition: SnackPosition.TOP,
-    backgroundColor: AppConstants.SNACK_BG_COLOR_SUCCESS,
-  );
-}
+
