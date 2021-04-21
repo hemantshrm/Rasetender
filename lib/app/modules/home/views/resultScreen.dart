@@ -10,10 +10,10 @@ import 'package:scrap_bid/app/modules/home/result_response_model.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
-class ResultScrenn extends GetView<HomeController> {
+class ResultScreen extends GetView<HomeController> {
   ResultResponseModel response;
 
-  ResultScrenn(this.response);
+  ResultScreen(this.response);
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,13 @@ class ResultScrenn extends GetView<HomeController> {
           children: [
             Spacer(),
             Center(
-              child: Container(
-                height: 200,
-                width: 200,
-                child: Image.asset("assets/images/winner.png"),
+              child: CircleAvatar(
+                radius: 90,
+                backgroundColor: AppConstants.APP_THEME_COLOR,
+                child: Image.asset(
+                  "assets/images/winner.png",
+                  filterQuality: FilterQuality.high,
+                ),
               ),
             ),
             SizedBox(
@@ -42,7 +45,7 @@ class ResultScrenn extends GetView<HomeController> {
             Text(
               response.msg,
               textAlign: TextAlign.center,
-              style: GoogleFonts.montserrat(fontSize: 20),
+              style: GoogleFonts.montserrat(fontSize: 25),
             ),
             Spacer(),
             MainButton(

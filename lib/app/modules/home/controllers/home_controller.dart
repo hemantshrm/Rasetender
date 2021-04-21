@@ -69,7 +69,7 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
 
 handleApi(ResultResponseModel response) {
   if (response.status == 0.toString()) {
-    Get.to(ResultScrenn(response));
+    Get.to(ResultScreen(response));
   } else {
     Get.defaultDialog(
       titleStyle: GoogleFonts.montserrat(color: Colors.green),

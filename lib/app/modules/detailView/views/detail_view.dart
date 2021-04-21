@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 
 import '../controllers/detail_view_controller.dart';
@@ -154,7 +153,7 @@ class Details extends StatelessWidget {
           child: Text(
             heading,
             style: AppConstants.dashboardStyle
-                .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
+                .copyWith(fontWeight: FontWeight.w500),
           ),
         ),
         Container(
@@ -183,8 +182,8 @@ class Date extends StatelessWidget {
       children: [
         Text(
           heading,
-          style: AppConstants.dashboardStyle
-              .copyWith(fontSize: 20, fontWeight: FontWeight.w500),
+          style:
+              AppConstants.dashboardStyle.copyWith(fontWeight: FontWeight.w500),
         ),
         SizedBox(
           width: 10,

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/home/views/resultScreen.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -41,10 +40,10 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           backgroundColor: AppConstants.APP_THEME_COLOR,
           actions: [
-            Icon(Icons.notifications),
-            SizedBox(
-              width: 20,
-            )
+            IconButton(
+              icon: Icon(Icons.filter_alt_outlined),
+              onPressed: () {},
+            ),
           ],
         ),
         drawer: HomeDrawer(),

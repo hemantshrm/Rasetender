@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppConstants {
   //=======================================================================================/Colors
@@ -25,7 +26,7 @@ class AppConstants {
 
 //==========================================================================================/api
 
-  static const TextStyle dashboardStyle = TextStyle(fontSize: 20);
+  static final TextStyle dashboardStyle = GoogleFonts.montserrat(fontSize: 20);
 
   //============================================================================================/App Constants
 
