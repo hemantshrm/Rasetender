@@ -7,10 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+
   Future<bool> _onWillPop() {
     return Get.defaultDialog(
           radius: 5,
@@ -209,14 +211,15 @@ class HomeDrawer extends GetView<HomeController> {
           ListTile(
             title: TileText('Sign Out'),
             leading: Icon(Icons.logout, color: AppConstants.APP_THEME_COLOR),
-            onTap: () {
-              Get.offAndToNamed(Routes.LOGIN);
+            onTap: () async {
+              await controller.clearPrefs();
+              Get.offAllNamed(Routes.LOGIN);
             },
           ),
         ],
       ),
     );
-  }
+  }   //abha1281
 }
 
 class TileText extends StatelessWidget {

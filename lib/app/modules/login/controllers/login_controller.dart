@@ -9,9 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:scrap_bid/app/data/ModelClasses/login_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
-import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/login_model.dart';
+
 import 'package:scrap_bid/app/modules/login/providers/login_model_provider.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,21 +51,20 @@ class LoginController extends GetxController {
 
     _getId();
     pref = await SharedPreferences.getInstance();
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification notification = message.notification;
-      AndroidNotification android = message.notification?.android;
-      if (notification != null && android != null) {
+    FirebaseMessaging.onMessage.listen((var message) {
+      String decription = message.data['title'];
+      String title = message.data['message'];
+
+      if (message != null) {
         flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
+            message.hashCode,
+            title,
+            decription,
             NotificationDetails(
               android: AndroidNotificationDetails(
                 channel.id,
                 channel.name,
                 channel.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
                 icon: 'launch_background',
               ),
             ));

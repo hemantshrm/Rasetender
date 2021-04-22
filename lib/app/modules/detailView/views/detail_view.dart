@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 
@@ -129,7 +130,10 @@ class DetailViewView extends GetView<DetailViewController> {
                     : "Bid Already Submitted",
                 onPress: () {
                   controller.apiData.value.bidsubmitted == 0
-                      ? controller.bidSubmit()
+                      ?
+                          controller.bidSubmit(context,controller.apiData.value.id)
+
+
                       : null;
                 },
               ),

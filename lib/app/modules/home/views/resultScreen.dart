@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/data/ModelClasses/result_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/home/controllers/home_controller.dart';
-import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/result_response_model.dart';
+
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 

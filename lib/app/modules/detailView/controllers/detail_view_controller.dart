@@ -3,13 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/ModelClasses/auction_detail_response.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_submit_model.dart';
 
 import 'package:scrap_bid/app/data/ModelClasses/auction_detail_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/bid_submit_response.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
-import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/bid_submit_response.dart';
+
 import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +20,7 @@ class DetailViewController extends GetxController {
   var apiData = AuctionDetail().obs;
   AuctionDetailProvider bidSubmitProvider = AuctionDetailProvider();
   SharedPreferences _preferences;
+
 
   @override
   Future<void> onInit() async {
@@ -46,19 +49,21 @@ class DetailViewController extends GetxController {
       isLoading(false);
     }
   }
+
 //=============================================================
 
-  Future<void> bidSubmit() async {
+  Future<void> bidSubmit(BuildContext context, String id) async {
+    onLoading(context);
     Map userMap = await jsonDecode(_preferences.getString('userData'));
     UserData user = UserData.fromJson(userMap);
 
     try {
       BidSubmitModel _model =
-          BidSubmitModel(userId: user.id, auctionId: Get.arguments);
+          BidSubmitModel(userId: user.id, auctionId: id);
 
       BidSubmitResponse response = await bidSubmitProvider
           .postBidSubmit(_model)
-          .then((value) => handleApi(value));
+          .then((value) => handleApi(value, context));
       print(response.toString());
     } catch (e) {
       print(e);
@@ -66,8 +71,9 @@ class DetailViewController extends GetxController {
   }
 }
 
-handleApi(BidSubmitResponse response) {
+handleApi(BidSubmitResponse response, context) {
   if (response.status == 1) {
+
     Get.to(() => SubmitBidScreen());
   }
   //else {

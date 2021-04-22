@@ -10,6 +10,8 @@ import 'package:scrap_bid/app/routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
+
+  final controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([

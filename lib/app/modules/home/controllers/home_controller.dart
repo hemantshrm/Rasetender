@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/data/ModelClasses/auction_list_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_result_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/result_response_model.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
-import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/auction_list_model.dart';
+
 import 'package:scrap_bid/app/modules/home/providers/auction_list_provider.dart';
-import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/result_response_model.dart';
+
 import 'package:scrap_bid/app/modules/home/views/resultScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,6 +33,7 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
     if (user != null) {
       userData.value = user;
     }
+
   }
 
 // AUCTION LIST API CALL
@@ -51,6 +54,11 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
     } finally {
       isLoading(false);
     }
+  }
+  clearPrefs() async {
+    pref.clear();
+    await pref.remove('userData');
+    print(pref.getString('userData'));
   }
 
   // RESULT API CALL
