@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/data/ModelClasses/registration_model_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/registration_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/signUp/providers/registration_model_provider.dart';
-import 'package:scrap_bid/app/modules/signUp/registration_model_model.dart';
-import 'package:scrap_bid/app/modules/signUp/registration_response_model.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 class SignUpController extends GetxController {

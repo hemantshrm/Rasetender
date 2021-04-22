@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:scrap_bid/app/data/ModelClasses/registration_response_model.dart';
 
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/signUp/registration_response_model.dart';
 
-import '../registration_model_model.dart';
+import '../../../data/ModelClasses/registration_model_model.dart';
 
 class RegistrationModelProvider {
   Future<RegistrationResponse> postRegistrationModel(

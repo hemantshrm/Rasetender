@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/login/login_model.dart';
-import 'package:scrap_bid/app/modules/login/login_response_model.dart';
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/login_model.dart';
 
 class LoginModelProvider extends GetConnect {
   Future<LoginResponse> postRegistrationModel(LoginModel _model) async {

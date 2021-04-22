@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/data/ModelClasses/forgotpass_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/forgotPass/forgotpass_response_model.dart';
-import '../forgotpass_model.dart';
+
+import '../../../data/ModelClasses/forgotpass_model.dart';
 
 class ForgotPassProvider extends GetConnect {
   Future<ForgotPassResponseModel> postRegistrationModel(

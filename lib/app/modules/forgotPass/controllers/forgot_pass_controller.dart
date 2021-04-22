@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/data/ModelClasses/forgotpass_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/forgotpass_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/forgotPass/forgotpass_model.dart';
-import 'package:scrap_bid/app/modules/forgotPass/forgotpass_response_model.dart';
+
 import 'package:scrap_bid/app/modules/forgotPass/providers/forgotpass_provider.dart';
 
 class ForgotPassController extends GetxController {

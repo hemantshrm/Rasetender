@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/data/ModelClasses/bid_result_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
-import 'package:scrap_bid/app/modules/home/auction_list_model.dart';
-import 'package:scrap_bid/app/modules/home/bid_result_model.dart';
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/auction_list_model.dart';
 import 'package:scrap_bid/app/modules/home/providers/auction_list_provider.dart';
-import 'package:scrap_bid/app/modules/home/result_response_model.dart';
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/result_response_model.dart';
 import 'package:scrap_bid/app/modules/home/views/resultScreen.dart';
-import 'package:scrap_bid/app/modules/login/login_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController with StateMixin<List<AuctionList>> {
@@ -33,6 +33,7 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
     }
   }
 
+// AUCTION LIST API CALL
   void fetchProducts() async {
     try {
       isLoading(true);
@@ -52,6 +53,7 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
     }
   }
 
+  // RESULT API CALL
   Future<void> getResult() async {
     try {
       BidResultModel _model =

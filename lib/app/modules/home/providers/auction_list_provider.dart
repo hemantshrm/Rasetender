@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/home/auction_list_model.dart';
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/auction_list_model.dart';
 
 class AuctionListProvider {
   static var client = http.Client();

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
@@ -8,10 +8,44 @@ import 'package:scrap_bid/app/modules/detailView/controllers/detail_view_control
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
-class SubmitBidScreen extends GetView<DetailViewController> {
+class SubmitBidScreen extends StatefulWidget {
+  @override
+  _SubmitBidScreenState createState() => _SubmitBidScreenState();
+}
+
+class _SubmitBidScreenState extends State<SubmitBidScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation heartBeatAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+    heartBeatAnimation =
+        Tween<double>(begin: 80, end: 100).animate(_animationController);
+    _animationController
+        .forward()
+        .whenComplete(() => _animationController.reverse());
+    _animationController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _animationController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      // ignore: missing_return
       onWillPop: () async {
         Future.value(false);
       },
@@ -23,10 +57,14 @@ class SubmitBidScreen extends GetView<DetailViewController> {
             children: [
               Spacer(),
               Center(
-                child: Container(
-                  height: 150,
-                  width: 150,
-                  child: Image.asset("assets/images/done.png"),
+                child: CircleAvatar(
+                  radius: heartBeatAnimation.value,
+                  backgroundColor: AppConstants.APP_THEME_COLOR,
+                  child: Icon(
+                    Icons.done,
+                    size: 90,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               SizedBox(

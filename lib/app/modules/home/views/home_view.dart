@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
+import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -198,7 +200,11 @@ class HomeDrawer extends GetView<HomeController> {
             ),
             onTap: () {
               controller.getResult();
+              Get.back();
             },
+          ),
+          Divider(
+            indent: 40,
           ),
           ListTile(
             title: TileText('Sign Out'),

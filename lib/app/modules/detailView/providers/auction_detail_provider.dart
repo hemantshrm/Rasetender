@@ -1,13 +1,15 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/data/ModelClasses/bid_result_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/bid_submit_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:scrap_bid/app/modules/detailView/bid_submit_model.dart';
-import 'package:scrap_bid/app/modules/detailView/bid_submit_response.dart';
-import 'package:scrap_bid/app/modules/home/bid_result_model.dart';
-import 'package:scrap_bid/app/modules/home/result_response_model.dart';
-import '../auction_detail_model.dart';
+
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/bid_submit_response.dart';
+
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/result_response_model.dart';
+import '../../../data/ModelClasses/auction_detail_model.dart';
 
 class AuctionDetailProvider extends GetConnect {
   AuctionDetailModel data = AuctionDetailModel();

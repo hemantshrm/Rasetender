@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scrap_bid/app/data/constants.dart';
-import 'package:scrap_bid/app/modules/detailView/auction_detail_model.dart';
-import 'package:scrap_bid/app/modules/detailView/bid_submit_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/bid_submit_model.dart';
+
+import 'package:scrap_bid/app/data/ModelClasses/auction_detail_model.dart';
+import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
-import 'package:scrap_bid/app/modules/detailView/bid_submit_response.dart';
+import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/bid_submit_response.dart';
 import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
-import 'package:scrap_bid/app/modules/login/login_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailViewController extends GetxController {
   var isLoading = true.obs;
   var apiData =
       AuctionDetailModel(auctionDetail: AuctionDetail(materialImage: '')).obs;
-  AuctionDetailProvider bidsubmitprovider = AuctionDetailProvider();
+  AuctionDetailProvider bidSubmitProvider = AuctionDetailProvider();
   SharedPreferences _preferences;
   @override
   Future<void> onInit() async {
@@ -46,7 +46,7 @@ class DetailViewController extends GetxController {
       BidSubmitModel _model =
           BidSubmitModel(userId: user.id, auctionId: Get.arguments);
 
-      BidSubmitResponse response = await bidsubmitprovider
+      BidSubmitResponse response = await bidSubmitProvider
           .postBidSubmit(_model)
           .then((value) => handleApi(value));
       print(response.toString());
