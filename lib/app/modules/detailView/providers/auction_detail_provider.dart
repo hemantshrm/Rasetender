@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/data/ModelClasses/auction_detail_response.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_result_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_submit_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
@@ -12,20 +13,23 @@ import 'file:///C:/Users/vndsh/scrap_bid/lib/app/data/ModelClasses/result_respon
 import '../../../data/ModelClasses/auction_detail_model.dart';
 
 class AuctionDetailProvider extends GetConnect {
-  AuctionDetailModel data = AuctionDetailModel();
+  AuctionDetailResponseModel data = AuctionDetailResponseModel();
 
   static var client = http.Client();
 
-  static Future<AuctionDetailModel> fetchDetailviewData() async {
-    http.Response response = await http.get(
+  static Future<AuctionDetailResponseModel> fetchDetailviewData(
+      AuctionDetailBody _body) async {
+    var body = json.encode(_body.toJson());
+    http.Response response = await http.post(
         Uri.parse('${AppConstants.BASE_URL + AppConstants.AUCTION_DETAIL_URL}'),
         headers: {
           "Content-Type": "application/json",
-        });
+        },
+        body: body);
     if (response.statusCode == 200) {
       String data = response.body;
       print(data);
-      return AuctionDetailModel.fromJson(jsonDecode(data));
+      return AuctionDetailResponseModel.fromJson(jsonDecode(data));
     }
   }
 

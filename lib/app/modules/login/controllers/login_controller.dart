@@ -24,13 +24,13 @@ class LoginController extends GetxController {
   final obscureText = true.obs;
   final passwordText = ''.obs;
   final emailText = ''.obs;
-  static const _chars = AppConstants.DEVICE_TOKEN;
-  Random _rnd = Random();
+
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   final box = GetStorage();
   LoginModelProvider _loginModelProvider = LoginModelProvider();
   SharedPreferences pref;
   var token;
+
   void clear() {
     email.clear();
     password.clear();
@@ -95,8 +95,8 @@ class LoginController extends GetxController {
     emailText.value = text;
   }
 
-  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  // String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+  //     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   Future<void> validate() async {
     if (email.text.isEmpty) {
@@ -140,7 +140,6 @@ class LoginController extends GetxController {
       pref.setString('userData', user);
       clear();
       Get.toNamed(Routes.HOME);
-      clear();
     } else {
       errorSnackbar(msg: response.msg);
     }

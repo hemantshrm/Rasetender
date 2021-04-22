@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/data/ModelClasses/auction_detail_response.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_submit_model.dart';
 
 import 'package:scrap_bid/app/data/ModelClasses/auction_detail_model.dart';
@@ -14,29 +15,38 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailViewController extends GetxController {
   var isLoading = true.obs;
-  var apiData =
-      AuctionDetailModel(auctionDetail: AuctionDetail(materialImage: '')).obs;
+  var apiData = AuctionDetail().obs;
   AuctionDetailProvider bidSubmitProvider = AuctionDetailProvider();
   SharedPreferences _preferences;
+
   @override
   Future<void> onInit() async {
-    fetchDetailView();
     super.onInit();
     _preferences = await SharedPreferences.getInstance();
+    fetchDetailView();
   }
 
+//===========================================================================================
   void fetchDetailView() async {
     try {
       isLoading(true);
-      await AuctionDetailProvider.fetchDetailviewData().then((resp) {
-        if (resp != null) {
-          apiData.value = resp;
+      Map userMap = await jsonDecode(_preferences.getString('userData'));
+      UserData user = UserData.fromJson(userMap);
+
+      AuctionDetailBody _model =
+          AuctionDetailBody(userId: user.id, auctionId: Get.arguments);
+      await AuctionDetailProvider.fetchDetailviewData(_model).then((resp) {
+        if (resp.auctionDetail != null) {
+          apiData.value = resp.auctionDetail;
         }
-      }, onError: (err) {});
+      }, onError: (err) {
+        print(err);
+      });
     } finally {
       isLoading(false);
     }
   }
+//=============================================================
 
   Future<void> bidSubmit() async {
     Map userMap = await jsonDecode(_preferences.getString('userData'));
@@ -58,23 +68,24 @@ class DetailViewController extends GetxController {
 
 handleApi(BidSubmitResponse response) {
   if (response.status == 1) {
-    Get.to(SubmitBidScreen());
-  } else {
-    Get.defaultDialog(
-      titleStyle: GoogleFonts.montserrat(color: Colors.green),
-      content: Text(
-        "${response.msg}",
-        textAlign: TextAlign.center,
-        textScaleFactor: 1.3,
-      ),
-      actions: <Widget>[
-        FlatButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: Text("Okay"),
-        ),
-      ],
-    );
+    Get.to(() => SubmitBidScreen());
   }
+  //else {
+  //   Get.defaultDialog(
+  //     titleStyle: GoogleFonts.montserrat(color: Colors.green),
+  //     content: Text(
+  //       "${response.msg}",
+  //       textAlign: TextAlign.center,
+  //       textScaleFactor: 1.3,
+  //     ),
+  //     actions: <Widget>[
+  //       FlatButton(
+  //         onPressed: () {
+  //           Get.back();
+  //         },
+  //         child: Text("Okay"),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

@@ -74,11 +74,12 @@ handleApi(ResultResponseModel response) {
     Get.to(ResultScreen(response));
   } else {
     Get.defaultDialog(
-      titleStyle: GoogleFonts.montserrat(color: Colors.green),
+      title: "Sorry",
+      titleStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
       content: Text(
         "${response.msg}",
         textAlign: TextAlign.center,
-        textScaleFactor: 1.3,
+        textScaleFactor: 1.1,
       ),
       actions: <Widget>[
         FlatButton(

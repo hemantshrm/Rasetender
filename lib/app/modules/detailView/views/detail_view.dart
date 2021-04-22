@@ -32,11 +32,12 @@ class DetailViewView extends GetView<DetailViewController> {
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
 
-                child: controller.apiData.value.auctionDetail.materialImage !=
+                child: "${controller.apiData.value..baseUrl}" +
+                            "${controller.apiData.value.materialImage}" !=
                         null
                     ? CachedNetworkImage(
-                        imageUrl:
-                            "${controller.apiData.value.auctionDetail.materialImage}",
+                        imageUrl: "${controller.apiData.value.baseUrl}" +
+                            "${controller.apiData.value.materialImage}",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
@@ -87,8 +88,7 @@ class DetailViewView extends GetView<DetailViewController> {
                 Obx(
                   () => Details(
                     heading: "Title :",
-                    title:
-                        "${controller.apiData.value.auctionDetail.materialCode}",
+                    title: "${controller.apiData.value.materialCode}",
                   ),
                 ),
                 SizedBox(
@@ -97,8 +97,7 @@ class DetailViewView extends GetView<DetailViewController> {
                 Obx(
                   () => Details(
                       heading: "Description :",
-                      title:
-                          "${controller.apiData.value.auctionDetail.materialDescription}"),
+                      title: "${controller.apiData.value.materialDescription}"),
                 ),
                 SizedBox(
                   height: 30,
@@ -106,8 +105,7 @@ class DetailViewView extends GetView<DetailViewController> {
                 Obx(
                   () => Date(
                     heading: "Start Date :",
-                    title:
-                        "${controller.apiData.value.auctionDetail.auctionStartDate}",
+                    title: "${controller.apiData.value.auctionStartDate}",
                   ),
                 ),
                 SizedBox(
@@ -116,8 +114,7 @@ class DetailViewView extends GetView<DetailViewController> {
                 Obx(
                   () => Date(
                     heading: "End Date   :",
-                    title:
-                        "${controller.apiData.value.auctionDetail.auctionStartDate}",
+                    title: "${controller.apiData.value.auctionStartDate}",
                   ),
                 ),
               ],
@@ -125,14 +122,19 @@ class DetailViewView extends GetView<DetailViewController> {
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            child: MainButton(
-              title: "I am Interested",
-              onPress: () {
-                controller.bidSubmit();
-                // Get.to(SubmitBidScreen());
-              },
+            child: Obx(
+              () => MainButton(
+                title: controller.apiData.value.bidsubmitted == 0
+                    ? "I am interested"
+                    : "Bid Already Submitted",
+                onPress: () {
+                  controller.apiData.value.bidsubmitted == 0
+                      ? controller.bidSubmit()
+                      : null;
+                },
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -153,14 +155,14 @@ class Details extends StatelessWidget {
           child: Text(
             heading,
             style: AppConstants.dashboardStyle
-                .copyWith(fontWeight: FontWeight.w500),
+                .copyWith(fontWeight: FontWeight.w600),
           ),
         ),
         Container(
           width: Get.width,
           child: AutoSizeText(
             title,
-            maxLines: 10,
+            maxLines: 20,
             maxFontSize: 20,
             style: AppConstants.dashboardStyle.copyWith(fontSize: 18),
           ),
@@ -183,7 +185,7 @@ class Date extends StatelessWidget {
         Text(
           heading,
           style:
-              AppConstants.dashboardStyle.copyWith(fontWeight: FontWeight.w500),
+              AppConstants.dashboardStyle.copyWith(fontWeight: FontWeight.w600),
         ),
         SizedBox(
           width: 10,

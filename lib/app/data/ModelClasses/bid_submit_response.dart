@@ -1,28 +1,29 @@
 class BidSubmitResponse {
   int status;
   String msg;
-  Data data;
+  Details details;
 
-  BidSubmitResponse({this.status, this.msg, this.data});
+  BidSubmitResponse({this.status, this.msg, this.details});
 
   BidSubmitResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     msg = json['msg'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    details =
+        json['details'] != null ? new Details.fromJson(json['details']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['msg'] = this.msg;
-    if (this.data != null) {
-      data['data'] = this.data.toJson();
+    if (this.details != null) {
+      data['details'] = this.details.toJson();
     }
     return data;
   }
 }
 
-class Data {
+class Details {
   String id;
   String auctionId;
   String userId;
@@ -30,7 +31,7 @@ class Data {
   String created;
   String lastUpdated;
 
-  Data(
+  Details(
       {this.id,
       this.auctionId,
       this.userId,
@@ -38,7 +39,7 @@ class Data {
       this.created,
       this.lastUpdated});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Details.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     auctionId = json['auction_id'];
     userId = json['user_id'];

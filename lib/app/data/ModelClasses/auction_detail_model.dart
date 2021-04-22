@@ -1,18 +1,16 @@
-class AuctionDetailModel {
+class AuctionDetailResponseModel {
   int status;
   String msg;
   AuctionDetail auctionDetail;
-  int applied;
 
-  AuctionDetailModel({this.status, this.msg, this.auctionDetail, this.applied});
+  AuctionDetailResponseModel({this.status, this.msg, this.auctionDetail});
 
-  AuctionDetailModel.fromJson(Map<String, dynamic> json) {
+  AuctionDetailResponseModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     msg = json['msg'];
     auctionDetail = json['auction_detail'] != null
         ? new AuctionDetail.fromJson(json['auction_detail'])
         : null;
-    applied = json['applied'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +20,6 @@ class AuctionDetailModel {
     if (this.auctionDetail != null) {
       data['auction_detail'] = this.auctionDetail.toJson();
     }
-    data['applied'] = this.applied;
     return data;
   }
 }
@@ -40,6 +37,7 @@ class AuctionDetail {
   String auctionCloseDate;
   String created;
   String publishStatus;
+  int bidsubmitted;
 
   AuctionDetail(
       {this.id,
@@ -53,7 +51,8 @@ class AuctionDetail {
       this.auctionStartDate,
       this.auctionCloseDate,
       this.created,
-      this.publishStatus});
+      this.publishStatus,
+      this.bidsubmitted});
 
   AuctionDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -68,6 +67,7 @@ class AuctionDetail {
     auctionCloseDate = json['auction_close_date'];
     created = json['created'];
     publishStatus = json['publish_status'];
+    bidsubmitted = json['bidsubmitted'];
   }
 
   Map<String, dynamic> toJson() {
@@ -84,6 +84,7 @@ class AuctionDetail {
     data['auction_close_date'] = this.auctionCloseDate;
     data['created'] = this.created;
     data['publish_status'] = this.publishStatus;
+    data['bidsubmitted'] = this.bidsubmitted;
     return data;
   }
 }
