@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/ModelClasses/auction_list_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_result_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
@@ -62,7 +63,8 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
   }
 
   // RESULT API CALL
-  Future<void> getResult() async {
+  Future<void> getResult(BuildContext context) async {
+    onLoading(context);
     try {
       BidResultModel _model =
           BidResultModel(userId: userData.value.id, auctionId: '');
@@ -81,6 +83,7 @@ handleApi(ResultResponseModel response) {
   if (response.status == 0.toString()) {
     Get.to(ResultScreen(response));
   } else {
+    Get.back();
     Get.defaultDialog(
       title: "Sorry",
       titleStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w500),

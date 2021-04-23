@@ -13,6 +13,7 @@ import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
 
 import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
+import 'package:scrap_bid/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailViewController extends GetxController {
@@ -74,6 +75,7 @@ class DetailViewController extends GetxController {
 handleApi(BidSubmitResponse response, context) {
   if (response.status == 1) {
 
+    Get.offAllNamed(Routes.DETAIL_VIEW);
     Get.to(() => SubmitBidScreen());
   }
   //else {

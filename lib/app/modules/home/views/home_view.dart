@@ -201,7 +201,7 @@ class HomeDrawer extends GetView<HomeController> {
               color: AppConstants.APP_THEME_COLOR,
             ),
             onTap: () {
-              controller.getResult();
+              controller.getResult(context);
               Get.back();
             },
           ),
