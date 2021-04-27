@@ -8,12 +8,20 @@ import 'package:scrap_bid/app/data/constants.dart';
 class AuctionListProvider {
   static var client = http.Client();
 
-  static Future<List<AuctionList>> fetchData() async {
+  static Future<List<AuctionList>> fetchData(String id,{bidStatus}) async {
+    var lastUrl;
+ if(bidStatus==null){
+   lastUrl='?user_id=${id}';
+ }else{
+    lastUrl='?user_id=${id}&bid_status=${bidStatus}';
+ }
+
     http.Response response = await http.get(
-        Uri.parse('${AppConstants.BASE_URL + AppConstants.AUCTION_LIST_URL}'),
+        Uri.parse('${AppConstants.BASE_URL + AppConstants.AUCTION_LIST_URL+lastUrl}'),
         headers: {
           "Content-Type": "application/json",
-        });
+        },
+    );
     if (response.statusCode == 200) {
       String data = response.body;
       print(data);

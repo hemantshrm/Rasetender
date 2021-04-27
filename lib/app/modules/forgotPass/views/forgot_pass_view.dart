@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
-
 import '../controllers/forgot_pass_controller.dart';
 
 class ForgotPassView extends GetView<ForgotPassController> {
@@ -49,7 +47,7 @@ class ForgotPassView extends GetView<ForgotPassController> {
                 MainButton(
                   title: "Submit",
                   onPress: () {
-                    controller.submitEmail();
+                    controller.submitEmail(context);
                   },
                 ),
                 SizedBox(

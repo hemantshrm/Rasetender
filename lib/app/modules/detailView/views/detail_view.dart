@@ -124,19 +124,16 @@ class DetailViewView extends GetView<DetailViewController> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: Obx(
-              () => MainButton(
-                title: controller.apiData.value.bidsubmitted == 0
-                    ? "I am interested"
-                    : "Bid Already Submitted",
+              () =>controller.apiData.value.bidsubmitted!=null? MainButton(
+                title: controller.apiData.value.bidsubmitted!=null?controller
+                    .handleBtnText(controller.apiData.value.bidsubmitted):'',
                 onPress: () {
                   controller.apiData.value.bidsubmitted == 0
-                      ?
-                          controller.bidSubmit(context,controller.apiData.value.id)
-
-
+                      ? controller.bidSubmit(
+                          context, controller.apiData.value.id)
                       : null;
                 },
-              ),
+              ):controller.apiData.value.bidsubmitted!=null?Text(controller.handleBtnText(controller.apiData.value.bidsubmitted)):SizedBox(),
             ),
           ),
         ],

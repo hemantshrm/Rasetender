@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/ModelClasses/forgotpass_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/forgotpass_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 
 import 'package:scrap_bid/app/modules/forgotPass/providers/forgotpass_provider.dart';
+import 'package:scrap_bid/app/routes/app_pages.dart';
 
 class ForgotPassController extends GetxController {
   TextEditingController forgotPassEmail = TextEditingController();
   ForgotPassProvider _forgotPassProvider = ForgotPassProvider();
 
-  Future<void> submitEmail() async {
+
+
+  Future<void> submitEmail(BuildContext context) async {
     if (forgotPassEmail.text.isEmpty) {
       errorSnackbar(msg: 'Enter Email Address');
     } else if (!GetUtils.isEmail(forgotPassEmail.text)) {
       errorSnackbar(msg: 'Invalid Email');
     } else {
+      onLoading(context);
       try {
+
         ForgotPassModel _model = ForgotPassModel(email: forgotPassEmail.text);
 
         ForgotPassResponseModel response = await _forgotPassProvider
@@ -32,8 +38,9 @@ class ForgotPassController extends GetxController {
 
   handleApi(ForgotPassResponseModel response) {
     if (response.status == 1) {
+
       Get.defaultDialog(
-        // title: "Success",
+
         titleStyle: GoogleFonts.montserrat(color: Colors.green),
         content: Text(
           "${response.msg}",
@@ -43,7 +50,7 @@ class ForgotPassController extends GetxController {
         actions: <Widget>[
           FlatButton(
             onPressed: () {
-              Get.back();
+              Get.offAndToNamed(Routes.LOGIN);
             },
             child: Text("Okay"),
           ),

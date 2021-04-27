@@ -95,8 +95,7 @@ class LoginController extends GetxController {
     emailText.value = text;
   }
 
-  // String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-  //     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
 
   Future<void> validate() async {
     if (email.text.isEmpty) {
@@ -113,7 +112,7 @@ class LoginController extends GetxController {
 
       box.write("deviceId", deviceInfo.androidId);
       var andId = box.read("deviceId");
-      // print(andId);
+
 
       try {
         LoginModel _model = LoginModel(

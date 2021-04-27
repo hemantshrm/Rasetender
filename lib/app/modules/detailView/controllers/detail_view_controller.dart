@@ -22,12 +22,22 @@ class DetailViewController extends GetxController {
   AuctionDetailProvider bidSubmitProvider = AuctionDetailProvider();
   SharedPreferences _preferences;
 
-
   @override
   Future<void> onInit() async {
     super.onInit();
     _preferences = await SharedPreferences.getInstance();
     fetchDetailView();
+  }
+
+  handleBtnText(id) {
+    if (id == 1) {
+      return 'Result Awaited';
+    } else if (id == 2) {
+      return 'Bid Won';
+    } else if (id == 3) {
+      return 'Bid Lost';
+    }
+    else return "I am Interested ";
   }
 
 //===========================================================================================
@@ -59,8 +69,7 @@ class DetailViewController extends GetxController {
     UserData user = UserData.fromJson(userMap);
 
     try {
-      BidSubmitModel _model =
-          BidSubmitModel(userId: user.id, auctionId: id);
+      BidSubmitModel _model = BidSubmitModel(userId: user.id, auctionId: id);
 
       BidSubmitResponse response = await bidSubmitProvider
           .postBidSubmit(_model)
@@ -74,7 +83,6 @@ class DetailViewController extends GetxController {
 
 handleApi(BidSubmitResponse response, context) {
   if (response.status == 1) {
-
     Get.offAllNamed(Routes.DETAIL_VIEW);
     Get.to(() => SubmitBidScreen());
   }

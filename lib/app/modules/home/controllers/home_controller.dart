@@ -22,10 +22,10 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
   SharedPreferences pref;
   AuctionDetailProvider resultProvider = AuctionDetailProvider();
   var userData = UserData().obs;
+  var header = 'Auctions'.obs;
 
   @override
   Future<void> onInit() async {
-    fetchProducts();
     super.onInit();
     pref = await SharedPreferences.getInstance();
     Map json = jsonDecode(pref.getString('userData'));
@@ -33,18 +33,32 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
 
     if (user != null) {
       userData.value = user;
+      fetchProducts(userData.value.id);
     }
-
   }
 
 // AUCTION LIST API CALL
-  void fetchProducts() async {
+  void fetchProducts(String id, {bidstatus}) async {
+    if (bidstatus == 1) {
+      header.value = 'Result Awaited';
+    } else if (bidstatus == 2) {
+      header.value = 'Bids Won';
+    } else if (bidstatus == 3) {
+      header.value = 'Bids Lost';
+    } else {
+      header.value = 'Auctions';
+    }
     try {
       isLoading(true);
-      await AuctionListProvider.fetchData().then((resp) {
+      await AuctionListProvider.fetchData(id, bidStatus: bidstatus).then(
+          (resp) {
         change(resp, status: RxStatus.success());
+
         if (resp != null) {
+          apiData.clear();
           apiData.addAll(resp);
+        }else{
+          apiData.clear();
         }
       }, onError: (err) {
         change(
@@ -56,6 +70,7 @@ class HomeController extends GetxController with StateMixin<List<AuctionList>> {
       isLoading(false);
     }
   }
+
   clearPrefs() async {
     pref.clear();
     await pref.remove('userData');
