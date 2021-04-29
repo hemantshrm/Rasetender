@@ -10,7 +10,6 @@ import 'package:scrap_bid/app/routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-
   final controller = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
@@ -37,19 +36,17 @@ class LoginView extends GetView<LoginController> {
                   SizedBox(
                     height: Get.height / 10,
                   ),
-                  CircleAvatar(
-                    backgroundColor: AppConstants.APP_THEME_COLOR,
-                    radius: 60,
-                    child: Image.asset(
-                      'assets/images/icon.png',
-                      fit: BoxFit.contain,
-                    ),
+                  Image.asset(
+                    'assets/images/logo.png',
+                    fit: BoxFit.contain,
+                    width: 100,
+                    height: 100,
                   ),
                   Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
                         alignment: Alignment.center,
-                        child: Text("Metal Scrapper",
+                        child: Text("RaS E Tender",
                             style: GoogleFonts.montserrat(
                                 color: Colors.black, fontSize: 20)),
                       )),
