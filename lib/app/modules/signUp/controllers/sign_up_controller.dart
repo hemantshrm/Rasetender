@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/ModelClasses/registration_model_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/registration_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
@@ -28,7 +29,7 @@ class SignUpController extends GetxController {
     address.clear();
   }
 
-  Future<void> validate() async {
+  Future<void> validate(BuildContext context) async {
     if (username.text.isEmpty) {
       errorSnackbar(msg: 'Enter Your Name');
     } else if (panNum.text.length != 10) {
@@ -43,9 +44,11 @@ class SignUpController extends GetxController {
       errorSnackbar(msg: 'Enter your Company Name');
     } else if (gstNum.text.isEmpty) {
       errorSnackbar(msg: 'Enter GST Number.');
-    } else if (gstNum.text.length != 15) {
-      errorSnackbar(msg: 'Invalid GST Number.');
-    } else if (!GetUtils.isEmail(email.text)) {
+    }
+    // else if (gstNum.text.length != 15) {
+    //   errorSnackbar(msg: 'Invalid GST Number.');
+    // }
+    else if (!GetUtils.isEmail(email.text)) {
       errorSnackbar(msg: 'Invalid Email');
     } else if (password.text.isEmpty) {
       errorSnackbar(msg: 'Enter Password');
@@ -56,21 +59,26 @@ class SignUpController extends GetxController {
     } else if (address.text == null && address.text.isEmpty) {
       errorSnackbar(msg: 'Enter valid address');
     } else {
-      RegistrationModel _model = RegistrationModel(
-          fullname: username.text,
-          email: email.text,
-          phone: phoneNo.text,
-          password: password.text,
-          cpassword: confirmPassword.text,
-          address: address.text,
-          pan: panNum.text,
-          gst: gstNum.text,
-          companyname: companyName.text);
+      onLoading(context);
+      try {
+        RegistrationModel _model = RegistrationModel(
+            fullname: username.text,
+            email: email.text,
+            phone: phoneNo.text,
+            password: password.text,
+            cpassword: confirmPassword.text,
+            address: address.text,
+            pan: panNum.text,
+            gst: gstNum.text,
+            companyname: companyName.text);
 
-      RegistrationResponse response = await _modelProvider
-          .postRegistrationModel(_model)
-          .then((value) => handleApi(value));
-      print(response.toString());
+        RegistrationResponse response = await _modelProvider
+            .postRegistrationModel(_model)
+            .then((value) => handleApi(value));
+        print(response.toString());
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
@@ -93,7 +101,7 @@ class SignUpController extends GetxController {
           progressIndicatorBackgroundColor: Colors.green,
           showProgressIndicator: true);
       Future.delayed(const Duration(seconds: 2), () {
-        Get.toNamed(Routes.LOGIN);
+        Get.toNamed(Routes.HOME);
         clearText();
       });
     } else {

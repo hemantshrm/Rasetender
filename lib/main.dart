@@ -10,22 +10,20 @@ import 'package:get_storage/get_storage.dart';
 import 'app/routes/app_pages.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp();
   print('Handling a background message ${message.messageId}');
 }
+
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
   'High Importance Notifications', // title
   'This channel is used for important notifications.', // description
   importance: Importance.high,
 );
+
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
-
-
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +38,7 @@ Future<void> main() async {
   /// default FCM channel to enable heads up notifications.
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   /// Update the iOS foreground notification presentation options to allow

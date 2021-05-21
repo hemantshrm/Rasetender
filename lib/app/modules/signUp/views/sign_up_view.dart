@@ -155,7 +155,7 @@ class SignUpView extends StatelessWidget {
                 MainButton(
                   title: "Submit",
                   onPress: () {
-                    _signUpController.validate();
+                    _signUpController.validate(context);
                   },
                 ),
                 SizedBox(

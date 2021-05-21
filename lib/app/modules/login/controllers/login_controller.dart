@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
@@ -95,9 +96,7 @@ class LoginController extends GetxController {
     emailText.value = text;
   }
 
-
-
-  Future<void> validate() async {
+  Future<void> validate(BuildContext context) async {
     if (email.text.isEmpty) {
       errorSnackbar(msg: 'Enter Email Address');
     } else if (!GetUtils.isEmail(email.text)) {
@@ -113,7 +112,7 @@ class LoginController extends GetxController {
       box.write("deviceId", deviceInfo.androidId);
       var andId = box.read("deviceId");
 
-
+      onLoading(context);
       try {
         LoginModel _model = LoginModel(
             username: email.text,

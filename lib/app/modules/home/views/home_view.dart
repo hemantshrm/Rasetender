@@ -115,7 +115,11 @@ class HomeView extends GetView<HomeController> {
         body: controller.obx(
           (state) => Container(
             child: controller.apiData.value.length == 0
-                ? Center(child: Text("No Result Found",style:GoogleFonts.montserrat(fontSize: 18),))
+                ? Center(
+                    child: Text(
+                    "No Result Found",
+                    style: GoogleFonts.montserrat(fontSize: 18),
+                  ))
                 : ListView.separated(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
@@ -250,20 +254,6 @@ class HomeDrawer extends GetView<HomeController> {
                 style: TextStyle(fontSize: 40.0),
               ),
             ),
-          ),
-          ListTile(
-            title: TileText('Auction Result'),
-            leading: Icon(
-              Icons.receipt,
-              color: AppConstants.APP_THEME_COLOR,
-            ),
-            onTap: () {
-              controller.getResult(context);
-              Get.back();
-            },
-          ),
-          Divider(
-            indent: 40,
           ),
           ListTile(
             title: TileText('Sign Out'),
