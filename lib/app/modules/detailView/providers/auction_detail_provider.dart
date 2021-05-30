@@ -9,7 +9,6 @@ import 'package:scrap_bid/app/data/ModelClasses/result_response_model.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:http/http.dart' as http;
 
-
 import '../../../data/ModelClasses/auction_detail_model.dart';
 
 class AuctionDetailProvider extends GetConnect {
@@ -27,7 +26,7 @@ class AuctionDetailProvider extends GetConnect {
         },
         body: body);
     if (response.statusCode == 200) {
-      String data = response.body;
+      var data = response.body;
       print(data);
       return AuctionDetailResponseModel.fromJson(jsonDecode(data));
     }

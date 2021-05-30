@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.triazinesoft.scrap.scrap_bid">
+    package="com.rasetender">
    <application
         android:label="RasE Tender"
         android:usesCleartextTraffic="true"

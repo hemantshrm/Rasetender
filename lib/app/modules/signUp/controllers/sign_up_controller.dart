@@ -17,7 +17,7 @@ class SignUpController extends GetxController {
   TextEditingController gstNum = TextEditingController();
   TextEditingController panNum = TextEditingController();
   TextEditingController companyName = TextEditingController();
-
+  final isloading = false.obs;
   RegistrationModelProvider _modelProvider = RegistrationModelProvider();
 
   void clearText() {
@@ -27,6 +27,10 @@ class SignUpController extends GetxController {
     password.clear();
     confirmPassword.clear();
     address.clear();
+  }
+
+  loadingToggleSignup(bool value) {
+    isloading.value = value;
   }
 
   Future<void> validate(BuildContext context) async {
@@ -59,7 +63,8 @@ class SignUpController extends GetxController {
     } else if (address.text == null && address.text.isEmpty) {
       errorSnackbar(msg: 'Enter valid address');
     } else {
-      onLoading(context);
+      // onLoading(context);
+      loadingToggleSignup(true);
       try {
         RegistrationModel _model = RegistrationModel(
             fullname: username.text,
@@ -76,8 +81,10 @@ class SignUpController extends GetxController {
             .postRegistrationModel(_model)
             .then((value) => handleApi(value));
         print(response.toString());
+        loadingToggleSignup(false);
       } catch (e) {
         print(e);
+        loadingToggleSignup(false);
       }
     }
   }
@@ -100,8 +107,8 @@ class SignUpController extends GetxController {
               )),
           progressIndicatorBackgroundColor: Colors.green,
           showProgressIndicator: true);
-      Future.delayed(const Duration(seconds: 2), () {
-        Get.toNamed(Routes.HOME);
+      Future.delayed(const Duration(seconds: 1), () {
+        Get.toNamed(Routes.LOGIN);
         clearText();
       });
     } else {

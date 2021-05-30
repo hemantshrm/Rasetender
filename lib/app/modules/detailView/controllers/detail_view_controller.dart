@@ -22,6 +22,15 @@ class DetailViewController extends GetxController {
   AuctionDetailProvider bidSubmitProvider = AuctionDetailProvider();
   SharedPreferences _preferences;
 
+  getImagesfromarray() {
+    if (apiData.value.materialImage != null) {
+      print(apiData.value.materialImage[0].toString());
+      return apiData.value.materialImage[0];
+    } else {
+      return '';
+    }
+  }
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -36,8 +45,8 @@ class DetailViewController extends GetxController {
       return 'Bid Won';
     } else if (id == 3) {
       return 'Bid Lost';
-    }
-    else return "I am Interested ";
+    } else
+      return "I am Interested ";
   }
 
 //===========================================================================================
@@ -86,22 +95,4 @@ handleApi(BidSubmitResponse response, context) {
     Get.offAllNamed(Routes.DETAIL_VIEW);
     Get.to(() => SubmitBidScreen());
   }
-  //else {
-  //   Get.defaultDialog(
-  //     titleStyle: GoogleFonts.montserrat(color: Colors.green),
-  //     content: Text(
-  //       "${response.msg}",
-  //       textAlign: TextAlign.center,
-  //       textScaleFactor: 1.3,
-  //     ),
-  //     actions: <Widget>[
-  //       FlatButton(
-  //         onPressed: () {
-  //           Get.back();
-  //         },
-  //         child: Text("Okay"),
-  //       ),
-  //     ],
-  //   );
-  // }
 }

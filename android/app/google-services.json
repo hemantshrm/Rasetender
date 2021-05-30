@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "757578504452",
-    "project_id": "scrapbid-c6ec1",
-    "storage_bucket": "scrapbid-c6ec1.appspot.com"
+    "project_number": "34155495466",
+    "project_id": "rasetender-3d6d9",
+    "storage_bucket": "rasetender-3d6d9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:757578504452:android:0d2f675a526678ca3b1851",
+        "mobilesdk_app_id": "1:34155495466:android:d47fbdc3c53c0fa7254353",
         "android_client_info": {
-          "package_name": "com.triazinesoft.scrap.scrap_bid"
+          "package_name": "com.rasetender"
         }
       },
       "oauth_client": [
         {
-          "client_id": "757578504452-k7hjdg9jlvp4mopeb2q7f6vndpq2ajed.apps.googleusercontent.com",
+          "client_id": "34155495466-bgaq76458n93rn57820pu550l0308e36.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDxuXBdQzjfSgAWo1vWAuOsHeqe6AOcyRM"
+          "current_key": "AIzaSyB2mu1FFn745usJdE5HA3s1DC9BeZCJ3rw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "757578504452-k7hjdg9jlvp4mopeb2q7f6vndpq2ajed.apps.googleusercontent.com",
+              "client_id": "34155495466-bgaq76458n93rn57820pu550l0308e36.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

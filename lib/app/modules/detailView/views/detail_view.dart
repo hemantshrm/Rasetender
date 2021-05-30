@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -41,33 +42,61 @@ class DetailViewView extends GetView<DetailViewController> {
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(10))),
 
-                  child: "${controller.apiData.value..baseUrl}" +
-                              "${controller.apiData.value.materialImage}" !=
+                  child: "${controller.apiData.value.baseUrl}" +
+                              "${controller.getImagesfromarray()}" !=
                           null
-                      ? Hero(
-                          tag: 'pic',
-                          child: CachedNetworkImage(
-                              imageUrl: "${controller.apiData.value.baseUrl}" +
-                                  "${controller.apiData.value.materialImage}",
-                              imageBuilder: (context, imageProvider) =>
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.red, BlendMode.colorBurn)),
-                                    ),
-                                  ),
-                              placeholder: (context, url) =>
-                                  Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) => Center(
-                                    child: Text(
-                                      'Please wait..',
-                                      style: GoogleFonts.ubuntu(fontSize: 20),
-                                    ),
-                                  )),
-                        )
+                      ? controller.apiData.value.materialImage != null
+                          ? CarouselSlider(
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                viewportFraction: 1,
+                                enableInfiniteScroll: false,
+                                height: 250.0,
+                                enlargeCenterPage: true,
+                              ),
+                              items: controller.apiData.value.materialImage
+                                  .map((item) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      width: Get.width,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            "${controller.apiData.value.baseUrl}" +
+                                                "${item}",
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            Center(
+                                          child: Text(
+                                            'Please wait..',
+                                            style: GoogleFonts.ubuntu(
+                                                fontSize: 20),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            )
+                          : SizedBox()
+                      // ? Hero(
+                      //     tag: 'pic',
+                      //     child:
+
+                      //   )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +173,10 @@ class DetailViewView extends GetView<DetailViewController> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: Obx(
-              () => controller.apiData.value.bidsubmitted != null
+              () => (controller.apiData.value.bidsubmitted != null &&
+                      controller.apiData.value.bidsubmitted != 1 &&
+                      controller.apiData.value.bidsubmitted != 2 &&
+                      controller.apiData.value.bidsubmitted != 3)
                   ? MainButton(
                       title: controller.apiData.value.bidsubmitted != null
                           ? controller.handleBtnText(
@@ -158,8 +190,15 @@ class DetailViewView extends GetView<DetailViewController> {
                       },
                     )
                   : controller.apiData.value.bidsubmitted != null
-                      ? Text(controller
-                          .handleBtnText(controller.apiData.value.bidsubmitted))
+                      ? Center(
+                          child: Text(
+                            controller.handleBtnText(
+                                controller.apiData.value.bidsubmitted),
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 20,
+                                color: AppConstants.APP_THEME_COLOR),
+                          ),
+                        )
                       : SizedBox(),
             ),
           ),

@@ -26,6 +26,7 @@ class LoginController extends GetxController {
   final obscureText = true.obs;
   final passwordText = ''.obs;
   final emailText = ''.obs;
+  final isLoading = false.obs;
 
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   final box = GetStorage();
@@ -36,6 +37,10 @@ class LoginController extends GetxController {
   void clear() {
     email.clear();
     password.clear();
+  }
+
+  loadingToggle(bool value) {
+    isLoading.value = value;
   }
 
   @override
@@ -112,7 +117,8 @@ class LoginController extends GetxController {
       box.write("deviceId", deviceInfo.androidId);
       var andId = box.read("deviceId");
 
-      onLoading(context);
+      //  onLoading(context);
+      loadingToggle(true);
       try {
         LoginModel _model = LoginModel(
             username: email.text,
@@ -126,7 +132,10 @@ class LoginController extends GetxController {
             .postRegistrationModel(_model)
             .then((value) => handleApi(value));
         print(response.toString());
+        loadingToggle(false);
       } catch (e) {
+        // Get.back();
+        loadingToggle(false);
         print(e);
       }
     }

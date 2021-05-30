@@ -11,8 +11,7 @@ class AppConstants {
   static const Color BACKGROUND_COLOR_BOTTOM = Color(0xffF3F8FE);
 
   //==========================================================================================/api
-  static const String BASE_URL =
-      'http://demo.triazinesoft.com/scrapdealer/api/v1/user/';
+  static const String BASE_URL = 'http://ubuyexpress.com/api/v1/user/';
   static const String REGISTRATION_URL = 'registration';
   static const String LOGIN_URL = 'login';
   static const String AUCTION_LIST_URL = 'auctions';

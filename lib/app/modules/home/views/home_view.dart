@@ -256,8 +256,47 @@ class HomeDrawer extends GetView<HomeController> {
             ),
           ),
           ListTile(
-            title: TileText('Sign Out'),
+              title: TileText('Auction List'),
+              leading: Icon(Icons.list, color: AppConstants.APP_THEME_COLOR),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              onTap: () {
+                controller.fetchProducts(controller.userData.value.id);
+                Get.back();
+              }),
+          ListTile(
+              title: TileText('Bids Won'),
+              leading: Icon(FontAwesomeIcons.trophy,
+                  color: AppConstants.APP_THEME_COLOR),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              onTap: () {
+                controller.fetchProducts(controller.userData.value.id,
+                    bidstatus: 2);
+                Get.back();
+              }),
+          ListTile(
+              title: TileText('Result Awaited'),
+              leading:
+                  Icon(Icons.access_time, color: AppConstants.APP_THEME_COLOR),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              onTap: () {
+                controller.fetchProducts(controller.userData.value.id,
+                    bidstatus: 1);
+                Get.back();
+              }),
+          ListTile(
+              title: TileText('Bids Lost'),
+              leading: Icon(FontAwesomeIcons.thumbsDown,
+                  color: AppConstants.APP_THEME_COLOR),
+              trailing: Icon(Icons.arrow_forward_ios_rounded),
+              onTap: () {
+                controller.fetchProducts(controller.userData.value.id,
+                    bidstatus: 3);
+                Get.back();
+              }),
+          ListTile(
+            title: TileText('Logout'),
             leading: Icon(Icons.logout, color: AppConstants.APP_THEME_COLOR),
+            trailing: Icon(Icons.arrow_forward_ios_rounded),
             onTap: () async {
               await controller.clearPrefs();
               Get.offAllNamed(Routes.LOGIN);
@@ -266,7 +305,7 @@ class HomeDrawer extends GetView<HomeController> {
         ],
       ),
     );
-  } //abha1281
+  }
 }
 
 class TileText extends StatelessWidget {

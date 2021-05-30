@@ -30,7 +30,7 @@ class AuctionDetail {
   String plantCode;
   String materialDescription;
   String baseUrl;
-  String materialImage;
+  List<String> materialImage;
   String materialType;
   String materialWeight;
   String auctionStartDate;
@@ -38,6 +38,8 @@ class AuctionDetail {
   String created;
   String publishStatus;
   int bidsubmitted;
+  int bitStatus;
+  String result;
 
   AuctionDetail(
       {this.id,
@@ -52,7 +54,9 @@ class AuctionDetail {
       this.auctionCloseDate,
       this.created,
       this.publishStatus,
-      this.bidsubmitted});
+      this.bidsubmitted,
+      this.bitStatus,
+      this.result});
 
   AuctionDetail.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,7 +64,7 @@ class AuctionDetail {
     plantCode = json['plant_code'];
     materialDescription = json['material_description'];
     baseUrl = json['base_url'];
-    materialImage = json['material_image'];
+    materialImage = json['image_gallery'].cast<String>();
     materialType = json['material_type'];
     materialWeight = json['material_weight'];
     auctionStartDate = json['auction_start_date'];
@@ -68,6 +72,8 @@ class AuctionDetail {
     created = json['created'];
     publishStatus = json['publish_status'];
     bidsubmitted = json['bidsubmitted'];
+    bitStatus = json['bit_status'];
+    result = json['result'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,7 +83,7 @@ class AuctionDetail {
     data['plant_code'] = this.plantCode;
     data['material_description'] = this.materialDescription;
     data['base_url'] = this.baseUrl;
-    data['material_image'] = this.materialImage;
+    data['image_gallery'] = this.materialImage;
     data['material_type'] = this.materialType;
     data['material_weight'] = this.materialWeight;
     data['auction_start_date'] = this.auctionStartDate;
@@ -85,6 +91,8 @@ class AuctionDetail {
     data['created'] = this.created;
     data['publish_status'] = this.publishStatus;
     data['bidsubmitted'] = this.bidsubmitted;
+    data['bit_status'] = this.bitStatus;
+    data['result'] = this.result;
     return data;
   }
 }
