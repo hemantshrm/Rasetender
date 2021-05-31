@@ -46,9 +46,7 @@ class _SubmitBidScreenState extends State<SubmitBidScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       // ignore: missing_return
-      onWillPop: () async {
-        Future.value(false);
-      },
+      onWillPop: () async => false,
       child: Scaffold(
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),

@@ -89,18 +89,6 @@ class LoginController extends GetxController {
     }
   }
 
-  toggle() {
-    obscureText.value = !obscureText.value;
-  }
-
-  setPassString(text) {
-    passwordText.value = text;
-  }
-
-  setEmailString(text) {
-    emailText.value = text;
-  }
-
   Future<void> validate(BuildContext context) async {
     if (email.text.isEmpty) {
       errorSnackbar(msg: 'Enter Email Address');
@@ -151,30 +139,29 @@ class LoginController extends GetxController {
       errorSnackbar(msg: response.msg);
     }
   }
+}
 
-  void errorSnackbar({@required String msg}) {
-    return Get.rawSnackbar(
-      message: '$msg',
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      borderRadius: 8,
-      isDismissible: true,
-      dismissDirection: SnackDismissDirection.HORIZONTAL,
-      icon: Icon(
-        Icons.warning_amber_rounded,
-        color: Colors.white,
-      ),
-      overlayBlur: 1,
-      shouldIconPulse: true,
-      mainButton: TextButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: Text(
-            "Dismiss",
-            style: TextStyle(color: Colors.black),
-          )),
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: AppConstants.SNACK_BG_COLOR_SUCCESS,
-    );
-  }
+void errorSnackbar({@required String msg}) {
+  return Get.rawSnackbar(
+    message: '$msg',
+    margin: EdgeInsets.symmetric(horizontal: 10),
+    borderRadius: 8,
+    isDismissible: true,
+    dismissDirection: SnackDismissDirection.HORIZONTAL,
+    icon: Icon(
+      Icons.warning_amber_rounded,
+      color: Colors.white,
+    ),
+    shouldIconPulse: true,
+    mainButton: TextButton(
+        onPressed: () {
+          Get.back();
+        },
+        child: Text(
+          "Dismiss",
+          style: TextStyle(color: Colors.black),
+        )),
+    snackPosition: SnackPosition.TOP,
+    backgroundColor: AppConstants.SNACK_BG_COLOR_SUCCESS,
+  );
 }

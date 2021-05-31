@@ -37,7 +37,6 @@ class SignUpView extends StatelessWidget {
                   SizedBox(height: 20),
                   LoginFields(
                     icon: Icon(Icons.person),
-                    hintText: "Enter your Name",
                     heading: "Name",
                     hidetext: false,
                     suffixIcon: null,
@@ -49,7 +48,6 @@ class SignUpView extends StatelessWidget {
                   ),
                   LoginFields(
                     icon: Icon(Icons.domain),
-                    hintText: "",
                     heading: "Company Name",
                     hidetext: false,
                     suffixIcon: null,
@@ -61,7 +59,6 @@ class SignUpView extends StatelessWidget {
                   ),
                   LoginFields(
                     icon: Icon(Icons.text_snippet_outlined),
-                    hintText: "",
                     heading: "Pan No.",
                     hidetext: false,
                     suffixIcon: null,
@@ -73,7 +70,6 @@ class SignUpView extends StatelessWidget {
                   ),
                   LoginFields(
                     icon: Icon(Icons.text_snippet_outlined),
-                    hintText: "",
                     heading: "GST No.",
                     hidetext: false,
                     suffixIcon: null,
@@ -85,7 +81,6 @@ class SignUpView extends StatelessWidget {
                   ),
                   LoginFields(
                     icon: Icon(Icons.phone),
-                    hintText: "Enter your Phone Number",
                     heading: "Phone Number",
                     hidetext: false,
                     suffixIcon: null,
@@ -98,7 +93,6 @@ class SignUpView extends StatelessWidget {
                   ),
                   LoginFields(
                     icon: Icon(Icons.email_outlined),
-                    hintText: "Enter your Email",
                     heading: "Email",
                     hidetext: false,
                     suffixIcon: null,
@@ -111,7 +105,6 @@ class SignUpView extends StatelessWidget {
                   ),
                   LoginFields(
                     icon: Icon(Icons.location_city_rounded),
-                    hintText: "Enter your Address",
                     heading: "Address",
                     hidetext: false,
                     suffixIcon: null,
@@ -124,7 +117,6 @@ class SignUpView extends StatelessWidget {
                   Obx(
                     () => LoginFields(
                       icon: Icon(Icons.lock_outline_rounded),
-                      hintText: "Enter Password",
                       heading: "Password",
                       suffixIcon: null,
                       hidetext: _logController.obscureText.value,
@@ -137,14 +129,13 @@ class SignUpView extends StatelessWidget {
                   Obx(
                     () => LoginFields(
                       icon: Icon(Icons.lock_outline_rounded),
-                      hintText: "Confirm Password",
                       heading: "Confirm Password",
                       suffixIcon: _logController.obscureText.value
                           ? Icon(Icons.visibility_outlined)
                           : Icon(Icons.visibility_off_outlined),
                       hidetext: _logController.obscureText.value,
                       onpress: () {
-                        _logController.toggle();
+                        _logController.obscureText.toggle();
                       },
                       ontextChange: (text) {},
                       textEditingController: _signUpController.confirmPassword,

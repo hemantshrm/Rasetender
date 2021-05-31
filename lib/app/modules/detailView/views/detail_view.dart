@@ -8,11 +8,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:scrap_bid/app/Util/loader.dart';
 import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/detailView/views/picture_Fullscreen.dart';
+import 'package:scrap_bid/app/modules/detailView/views/terms&condition.dart';
 import 'package:scrap_bid/app/modules/login/views/login_view.dart';
 
 import '../controllers/detail_view_controller.dart';
 
-class DetailViewView extends GetView<DetailViewController> {
+class DetailViewView extends StatelessWidget {
+  final DetailViewController controller =
+      Get.put(DetailViewController(), permanent: true);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +41,10 @@ class DetailViewView extends GetView<DetailViewController> {
                   width: Get.width,
                   height: 250,
                   decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppConstants.APP_THEME_COLOR,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-
+                    border: Border.all(
+                      color: AppConstants.APP_THEME_COLOR,
+                    ),
+                  ),
                   child: "${controller.apiData.value.baseUrl}" +
                               "${controller.getImagesfromarray()}" !=
                           null
@@ -92,11 +95,6 @@ class DetailViewView extends GetView<DetailViewController> {
                               }).toList(),
                             )
                           : SizedBox()
-                      // ? Hero(
-                      //     tag: 'pic',
-                      //     child:
-
-                      //   )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -117,11 +115,6 @@ class DetailViewView extends GetView<DetailViewController> {
                             )
                           ],
                         ),
-                  // Carousel(
-                  //   images: [
-                  //
-                  //   ],
-                  // )
                 ),
               ),
             ),
@@ -167,41 +160,127 @@ class DetailViewView extends GetView<DetailViewController> {
                     title: "${controller.apiData.value.auctionCloseDate}",
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                Obx(() => (controller.apiData.value.bidsubmitted != null &&
+                        controller.apiData.value.bidsubmitted != 1 &&
+                        controller.apiData.value.bidsubmitted != 2 &&
+                        controller.apiData.value.bidsubmitted != 3)
+                    ? Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            'Enter Bid Amount  :',
+                            style: AppConstants.dashboardStyle
+                                .copyWith(fontWeight: FontWeight.w600),
+                          )),
+                          Expanded(
+                              flex: 2,
+                              child: Container(
+                                padding: EdgeInsets.only(right: 10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black)),
+                                child: LoginFields(
+                                  textEditingController: controller.bidAmount,
+                                  hintText: "Enter Bid Amount",
+                                  keyboard: TextInputType.number,
+                                  suffixTEXT: "Rate/KG",
+                                ),
+                              )),
+                        ],
+                      )
+                    : Text('')),
+                SizedBox(
+                  height: 20,
+                ),
+                Obx(
+                  () => (controller.apiData.value.bidsubmitted != null &&
+                          controller.apiData.value.bidsubmitted != 1 &&
+                          controller.apiData.value.bidsubmitted != 2 &&
+                          controller.apiData.value.bidsubmitted != 3)
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                              ObxValue(
+                                (data) => Checkbox(
+                                    fillColor: MaterialStateProperty.all(
+                                        AppConstants.APP_THEME_COLOR),
+                                    value: data.value,
+                                    onChanged: (flag) {
+                                      data.value = flag;
+                                      controller.check.value = data.value;
+                                      print(controller.check.value);
+                                    }),
+                                false.obs,
+                              ),
+                              AutoSizeText('I have read and accept ',
+                                  style: AppConstants.dashboardStyle
+                                      .copyWith(fontSize: 10)),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => TermsAndConditon(),
+                                      transition: Transition.zoom,
+                                      curve: Curves.easeInCirc);
+                                },
+                                child: AutoSizeText('terms and conditions',
+                                    style: AppConstants.dashboardStyle.copyWith(
+                                        fontSize: 10,
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                            ])
+                      : Text(''),
+                )
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            child: Obx(
-              () => (controller.apiData.value.bidsubmitted != null &&
-                      controller.apiData.value.bidsubmitted != 1 &&
-                      controller.apiData.value.bidsubmitted != 2 &&
-                      controller.apiData.value.bidsubmitted != 3)
-                  ? MainButton(
+          Obx(
+            () => controller.check.value
+                ? Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: Obx(
+                      () => (controller.apiData.value.bidsubmitted != null &&
+                              controller.apiData.value.bidsubmitted != 1 &&
+                              controller.apiData.value.bidsubmitted != 2 &&
+                              controller.apiData.value.bidsubmitted != 3)
+                          ? MainButton(
+                              title:
+                                  controller.apiData.value.bidsubmitted != null
+                                      ? controller.handleBtnText(
+                                          controller.apiData.value.bidsubmitted)
+                                      : '',
+                              onPress: () {
+                                controller.apiData.value.bidsubmitted == 0
+                                    ? controller.bidSubmit(
+                                        context, controller.apiData.value.id)
+                                    : null;
+                              },
+                            )
+                          : controller.apiData.value.bidsubmitted != null
+                              ? Center(
+                                  child: Text(
+                                    controller.handleBtnText(
+                                        controller.apiData.value.bidsubmitted),
+                                    style: GoogleFonts.ubuntu(
+                                        fontSize: 20,
+                                        color: AppConstants.APP_THEME_COLOR),
+                                  ),
+                                )
+                              : SizedBox(),
+                    ),
+                  )
+                : Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: MainButton(
+                      onPress: null,
                       title: controller.apiData.value.bidsubmitted != null
                           ? controller.handleBtnText(
                               controller.apiData.value.bidsubmitted)
                           : '',
-                      onPress: () {
-                        controller.apiData.value.bidsubmitted == 0
-                            ? controller.bidSubmit(
-                                context, controller.apiData.value.id)
-                            : null;
-                      },
-                    )
-                  : controller.apiData.value.bidsubmitted != null
-                      ? Center(
-                          child: Text(
-                            controller.handleBtnText(
-                                controller.apiData.value.bidsubmitted),
-                            style: GoogleFonts.ubuntu(
-                                fontSize: 20,
-                                color: AppConstants.APP_THEME_COLOR),
-                          ),
-                        )
-                      : SizedBox(),
-            ),
-          ),
+                    ),
+                  ),
+          )
         ],
       ),
     );

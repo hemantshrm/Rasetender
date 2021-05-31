@@ -10,9 +10,11 @@ import 'package:scrap_bid/app/data/ModelClasses/bid_submit_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/auction_detail_model.dart';
 import 'package:scrap_bid/app/data/ModelClasses/bid_submit_response.dart';
 import 'package:scrap_bid/app/data/ModelClasses/login_response_model.dart';
+import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/modules/detailView/providers/auction_detail_provider.dart';
 
 import 'package:scrap_bid/app/modules/detailView/views/submit_bid_view.dart';
+import 'package:scrap_bid/app/modules/login/controllers/login_controller.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,6 +23,8 @@ class DetailViewController extends GetxController {
   var apiData = AuctionDetail().obs;
   AuctionDetailProvider bidSubmitProvider = AuctionDetailProvider();
   SharedPreferences _preferences;
+  TextEditingController bidAmount = TextEditingController();
+  var check = false.obs;
 
   getImagesfromarray() {
     if (apiData.value.materialImage != null) {
@@ -46,7 +50,7 @@ class DetailViewController extends GetxController {
     } else if (id == 3) {
       return 'Bid Lost';
     } else
-      return "I am Interested ";
+      return "Place Bid";
   }
 
 //===========================================================================================
@@ -73,24 +77,35 @@ class DetailViewController extends GetxController {
 //=============================================================
 
   Future<void> bidSubmit(BuildContext context, String id) async {
-    onLoading(context);
-    Map userMap = await jsonDecode(_preferences.getString('userData'));
-    UserData user = UserData.fromJson(userMap);
+    if (bidAmount.text.isNotEmpty) {
+      onLoading(context);
+      Map userMap = await jsonDecode(_preferences.getString('userData'));
+      UserData user = UserData.fromJson(userMap);
 
-    try {
-      BidSubmitModel _model = BidSubmitModel(userId: user.id, auctionId: id);
+      try {
+        BidSubmitModel _model = BidSubmitModel(
+            userId: user.id, auctionId: id, bidAmount: bidAmount.text);
 
-      BidSubmitResponse response = await bidSubmitProvider
-          .postBidSubmit(_model)
-          .then((value) => handleApi(value, context));
-      print(response.toString());
-    } catch (e) {
-      print(e);
+        BidSubmitResponse response = await bidSubmitProvider
+            .postBidSubmit(_model)
+            .then((value) => handleApi(
+                  value,
+                  context,
+                ));
+        print(response.toString());
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      errorSnackbar(msg: 'Please enter bid Amount');
     }
   }
 }
 
-handleApi(BidSubmitResponse response, context) {
+handleApi(
+  BidSubmitResponse response,
+  context,
+) {
   if (response.status == 1) {
     Get.offAllNamed(Routes.DETAIL_VIEW);
     Get.to(() => SubmitBidScreen());

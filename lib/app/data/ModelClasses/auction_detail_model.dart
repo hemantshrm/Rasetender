@@ -26,15 +26,15 @@ class AuctionDetailResponseModel {
 
 class AuctionDetail {
   String id;
-  String materialCode;
+  String materialCode = '';
   String plantCode;
-  String materialDescription;
+  String materialDescription = '';
   String baseUrl;
   List<String> materialImage;
   String materialType;
   String materialWeight;
-  String auctionStartDate;
-  String auctionCloseDate;
+  String auctionStartDate = '';
+  String auctionCloseDate = '';
   String created;
   String publishStatus;
   int bidsubmitted;

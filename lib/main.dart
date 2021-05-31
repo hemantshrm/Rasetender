@@ -53,7 +53,7 @@ Future<void> main() async {
   runZonedGuarded(() {
     runApp(
       GetMaterialApp(
-        title: "Application",
+        title: "Ras E Tender",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       ),

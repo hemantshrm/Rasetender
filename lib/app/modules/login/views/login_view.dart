@@ -6,8 +6,10 @@ import 'package:scrap_bid/app/data/constants.dart';
 import 'package:scrap_bid/app/routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  LoginController controller = Get.put(LoginController());
+class LoginView extends StatelessWidget {
+  LoginController controller = Get.put(
+    LoginController(),
+  );
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -49,14 +51,10 @@ class LoginView extends GetView<LoginController> {
                   ),
                   LoginFields(
                     icon: Icon(Icons.email_outlined),
-                    hintText: "Your email id",
                     heading: "Email",
                     hidetext: false,
                     suffixIcon: null,
                     onpress: () {},
-                    ontextChange: (text) {
-                      controller.setEmailString(text);
-                    },
                     textEditingController: controller.email,
                     keyboard: TextInputType.emailAddress,
                   ),
@@ -66,17 +64,13 @@ class LoginView extends GetView<LoginController> {
                   Obx(
                     () => LoginFields(
                       icon: Icon(Icons.lock_outline_rounded),
-                      hintText: "Enter your Password",
                       heading: "Password",
                       suffixIcon: controller.obscureText.value
                           ? Icon(Icons.visibility_outlined)
                           : Icon(Icons.visibility_off_outlined),
                       hidetext: controller.obscureText.value,
                       onpress: () {
-                        controller.toggle();
-                      },
-                      ontextChange: (text) {
-                        controller.setPassString(text);
+                        controller.obscureText.toggle();
                       },
                       textEditingController: controller.password,
                     ),
@@ -193,10 +187,11 @@ class LoginFields extends StatelessWidget {
       this.onpress,
       this.ontextChange,
       this.textEditingController,
-      this.keyboard});
+      this.keyboard,
+      this.suffixTEXT});
 
   final Function onpress;
-  final String hintText, heading;
+  final String hintText, heading, suffixTEXT;
   final Icon icon;
   final Icon suffixIcon;
   final bool hidetext;
@@ -226,6 +221,11 @@ class LoginFields extends StatelessWidget {
               style: textstyle,
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
+                  suffixText: suffixTEXT,
+                  suffixStyle: GoogleFonts.ubuntu(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
                   labelText: heading,
                   labelStyle: GoogleFonts.ubuntu(
                     color: AppConstants.TEXT_FIELD_HEADER,
@@ -239,10 +239,11 @@ class LoginFields extends StatelessWidget {
                   suffixIcon: suffixIcon == null
                       ? null
                       : IconButton(icon: suffixIcon, onPressed: onpress),
-                  // hintText: hintText,
+                  hintText: hintText,
                   contentPadding: EdgeInsets.only(left: 2, bottom: 4),
                   focusedBorder: UnderlineInputBorder(),
-                  hintStyle: textstyle)),
+                  hintStyle: textstyle.copyWith(
+                      fontSize: 14, fontWeight: FontWeight.w400))),
         ),
       ],
     );
